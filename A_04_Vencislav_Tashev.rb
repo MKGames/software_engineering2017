@@ -1,12 +1,61 @@
 require 'csv'
 require 'time'
 
-FILE_PATH = './A_04_Vencislav_Tashev.csv'
-INITIAL_CURL_REQUEST = "curl -s --form \"file=@#{FILE_PATH}\""
+class String
+  def colorize(color_code)
+    "\e[#{color_code}m#{self}\e[0m"
+  end
 
-# TODO: Implement it with a Hash, not with arrays
-actions = %w(sums filters intervals lin_regressions)
-expected = %w(51068.00 24758.00 1930.00 -0.000996,51.566565)
+  def red
+    colorize(31)
+  end
+
+  def green
+    colorize(32)
+  end
+
+  def yellow
+    colorize(33)
+  end
+
+  def pink
+    colorize(35)
+  end
+
+  def light_blue
+    colorize(36)
+  end
+
+  def good
+    "#{"\u2713".encode('utf-8')} #{self.green}"
+  end
+
+  def bad
+    "#{"\u2613".encode('utf-8')} #{self.red}"
+  end
+end
+
+FILE_PATH = './A_04_Vencislav_Tashev.csv'
+INITIAL_CURL_REQUEST = "curl -s --form \"file=@#{FILE_PATH}\" -m 10000"
+
+TEST_CASES = [
+  {
+    action: 'sums',
+    expected: '51068.00'
+  },
+  {
+    action: 'filters',
+    expected: '24758.00'
+  },
+  {
+    action: 'intervals',
+    expected: '1930.00'
+  },
+  {
+    action: 'lin_regressions',
+    expected: '-0.000996,51.566565'
+  }
+]
 
 def is_heroku_url?(url_string)
   url_string.end_with?('herokuapp.com/')
@@ -16,24 +65,28 @@ def is_on_time?(current_date, max_date)
   current_date <= max_date
 end
 
-def get_actual_results(url_string, actions)
-  actual_results = []
-
-  actions.each do |action|
-    request_url = url_string + action
-    actual_result = `#{INITIAL_CURL_REQUEST} #{request_url}`.to_s
-    actual_results.push actual_result
-  end
-
-  actual_results
-end
-
 def get_user_representation(user_info_hash)
   user_class = user_info_hash[1].strip.upcase
   user_number = user_info_hash[2]
   user_full_name = "#{user_info_hash[3].strip} #{user_info_hash[4].strip}"
 
   "#{user_full_name} (#{user_class}, #{user_number})"
+end
+
+def get_test_actual(url_string, action)
+  `#{INITIAL_CURL_REQUEST} #{url_string + action}`.to_s
+end
+
+def get_test_status(passed, test_action)
+  status_text = "Test on \"#{test_action}\""
+
+  if passed
+    status_text << ' passed'
+    status_text.good
+  else
+    status_text << ' failed'
+    status_text.bad
+  end
 end
 
 date_format = '%d/%m/%Y %H:%M:%S'
@@ -51,13 +104,25 @@ CSV.foreach(ARGV[0], headers: true) do |row|
       url_string << '/' unless url_string.end_with?('/')
 
       if is_heroku_url? url_string
-        actual = get_actual_results url_string, actions
-        result = expected == actual ? 1 : 0
+        puts "Testing #{user_info}:".yellow
+        puts "\tSubmission time: #{user_date.strftime date_format}"
+        grade = 0
 
-        puts "#{user_info} has #{result}"
+        TEST_CASES.each do |test|
+          test[:actual] = get_test_actual url_string, test[:action]
+
+          passed = test[:expected] == test[:actual]
+          grade = passed ? 1 : 0
+          current_test_status = get_test_status passed, test[:action]
+
+          puts "\t#{current_test_status}"
+        end
+
+        puts "\n\tTotal grade: #{grade}".light_blue
+        puts '-' * 45
       end
     else
-      puts "#{user_info} is late."
+      puts "#{user_info} is late.".pink
     end
   end
 end
