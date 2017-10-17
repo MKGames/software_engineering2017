@@ -32,7 +32,7 @@ TESTS = [
 
 DATE_FORMAT = '%d/%m/%Y %H:%M:%S'
 DEADLINE = DateTime.strptime '10/10/2017 23:59:59', DATE_FORMAT
-TEST_CASE_DELIMITER = '-' * 45
+DELIMITER = '-' * 45
 
 # ------------------------------------------------------------------------------
 
@@ -205,5 +205,5 @@ students.sort_by { |s| [s.clazz, s.number] }.each do |student|
     puts "\tNo tests runned".red
   end
 
-  puts TEST_CASE_DELIMITER
+  puts DELIMITER
 end
