@@ -1,8 +1,10 @@
 require('csv')
 require('time')
 
-$correct_answers = ['21.00', '12.00', '21.00', '1.000000,1.000000']
-$all_answers = []
+# this is in accordance to my file
+$correct_answers = ['5148.00', '2607.00', '1819.00', '-0.072535,55.143030']
+# $all_answers = []
+
 def get_time(time_str)
   DateTime.strptime(time_str, '%d/%m/%Y %H:%M:%S')
 end
@@ -47,18 +49,18 @@ class Student
 
     answers = []
     @@paths.each do |path|
-      result = `curl -s -F "file=@#{ARGV[1]}" #{@url}#{path} -m 10`
+      result = `curl -s -F "file=@#{ARGV[1]}" #{@url}#{path} -m 2`
       answers << result
     end
-    $all_answers << answers
-    print answers, $correct_answers
+    # $all_answers << answers
+    # print answers, $correct_answers
     if answers == $correct_answers then 'correct' else 'bad_answers' end
   end
 end
 
 # ARGV[1] is the test file
 file = CSV.open(ARGV[0], 'r')
-
+# CSV.foreach(ARGV[0], headers: true)
 # it would be more efficient to have a queue and like 10 threads going through
 # them but for ~100 iterations i don't care
 threads = []
