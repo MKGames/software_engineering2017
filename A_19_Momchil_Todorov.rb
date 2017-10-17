@@ -1,13 +1,13 @@
 require 'csv'
-file = ARGV[0]
+file = File.read(ARGV[0])
 
 check = 0
-CSV.foreach(input_file) do |row| 
+CSV.foreach(file) do |row| 
 	result = 0
 	heroku_url = row[5]
 
 	r1 = `curl -s -F \"file=@./A_19_Momchil_Todorov.csv\" #{heroku_url}/sums` 
-   	r2 = `curl -s -F \"file=@./A_19_Momchil_Todorov.csv\" #{hjeroku_url}/filters`  
+   	r2 = `curl -s -F \"file=@./A_19_Momchil_Todorov.csv\" #{heroku_url}/filters`  
 	r3 = `curl -s -F \"file=@./A_19_Momchil_Todorov.csv\" #{heroku_url}/intervals`
 	r4 = `curl -s -F \"file=@./A_19_Momchil_Todorov.csv\" #{heroku_url}/lin_regressions`
 
