@@ -45,10 +45,10 @@ CSV.foreach(file, headers: true, skip_blanks: true) do |row|
       heroku_url = heroku_url + "/"
     end
 
-    result = `curl -F "file=@sums.csv" #{heroku_url}sums 2>/dev/null` == "55.00" &&
-	           `curl -F "file=@sums.csv" #{heroku_url}filters 2>/dev/null` == "0.00" &&
-	           `curl -F "file=@sums.csv" #{heroku_url}intervals 2>/dev/null` == "55.00" &&
-	           `curl -F "file=@sums.csv" #{heroku_url}lin_regressions 2>/dev/null` == "1.000000,0.000000" ? 1 : 0
+    result = `curl -F "file=@B_12_Kaloyan_Madjunov.csv" #{heroku_url}sums 2>/dev/null` == "55.00" &&
+	           `curl -F "file=@B_12_Kaloyan_Madjunov.csv" #{heroku_url}filters 2>/dev/null` == "0.00" &&
+	           `curl -F "file=@B_12_Kaloyan_Madjunov.csv" #{heroku_url}intervals 2>/dev/null` == "55.00" &&
+	           `curl -F "file=@B_12_Kaloyan_Madjunov.csv" #{heroku_url}lin_regressions 2>/dev/null` == "1.000000,0.000000" ? 1 : 0
   end
 
   student = Student.new(school_class, number_in_class, student_name, result)
