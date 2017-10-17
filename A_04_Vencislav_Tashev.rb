@@ -8,7 +8,7 @@ end
 
 STUDENTS_DATA = ARGV[0]
 TEST_DATA = './A_04_Vencislav_Tashev.csv'
-TIMEOUT_SECONDS = 15
+TIMEOUT_SECONDS = 3
 INITIAL_CURL_REQUEST = "curl -s --form \"file=@#{TEST_DATA}\" -m #{TIMEOUT_SECONDS}"
 
 TESTS = [
@@ -65,8 +65,8 @@ class String
     "#{"\u2613".encode('utf-8')} #{self.red}"
   end
 
-  def is_valid_heroku_url?
-    self.end_with? 'herokuapp.com/'
+  def valid_heroku_url?
+    self.end_with?('herokuapp.com/')
   end
 end
 
@@ -149,7 +149,7 @@ def generate_students(csv_file)
     unless url_string.nil?
       url_string << '/' unless url_string.end_with?('/')
 
-      if url_string.is_valid_heroku_url?
+      if url_string.valid_heroku_url?
         timestamp = row[0]
         clazz = row[1]
         number = row[2]
