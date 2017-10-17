@@ -1,6 +1,11 @@
 require 'csv'
 require 'time'
 
+if ARGV.empty?
+    puts "Usage: #{$0} [data.csv]"
+    exit
+end
+
 STUDENTS_DATA = ARGV[0]
 TEST_DATA = './A_04_Vencislav_Tashev.csv'
 TIMEOUT_SECONDS = 15
