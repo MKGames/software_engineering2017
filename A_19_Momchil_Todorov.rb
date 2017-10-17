@@ -1,5 +1,5 @@
 require 'csv'
-file = File.read(ARGV[0])
+file = File.new(ARGV[0])
 
 check = 0
 CSV.foreach(file) do |row| 
