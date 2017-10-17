@@ -15,9 +15,9 @@ CSV.foreach(file,:headers => true) do |row|
 		p "0"
 		else			
 			if p0 && p1 && p2 && p3 
-			p "#{row[3]} #{row[4]}: 1"
+			p "#{row[1]} #{row[2]} #{row[3]} #{row[4]}: 1"
 			else 
-			p "#{row[3]} #{row[4]}: 0"
+			p "#{row[1]} #{row[2]} #{row[3]} #{row[4]}: 0"
 			end
 		end
 	  

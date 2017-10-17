@@ -5,7 +5,7 @@ csv_file_path = './A_17_Martin_Markov.csv'
 hws_file_path = ARGV[0]
 
 CSV.foreach(hws_file_path) do |row|
-  print "#{row[3]} #{row[4]} #{row[1]} "
+  print "#{row[1]} ##{row[2]} #{row[3]} #{row[4]} "
   begin
     row[5].strip!
     heroku_url = URI(row[5]).host
