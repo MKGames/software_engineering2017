@@ -14,8 +14,6 @@ require 'csv'
 			r3 =`curl -F "file=@/home/razbiva4/Desktop/sumx.csv" #{herourl}/filters 2>/dev/null`
 			r4 =`curl -F "file=@/home/razbiva4/Desktop/sumx.csv" #{herourl}/lin_regressions 2>/dev/null`
 
-			puts "r1 = " + r1 + " " + "r2 = " + r2 + " " + "r3 = " + r3 + " " + "r4 = " + r4
-
 			if r1 == "15.00" && r2 == "15.00" && r3 == "8.00" && r4 == "0.900000,0.300000" 
 				result = 1
 			else 
