@@ -2,7 +2,7 @@ require 'csv'
 
 SUMS_ANSWER = "903.0"
 FILTERS_ANSWER = "425.0"
-INTERVALS_ANSWER = "837.0"
+INTERVALS_ANSWER = "825.0"
 LINREGRESSIONS_ANSWER = "1.0, 0.0"
 
 apps = []
@@ -36,10 +36,10 @@ classNum.shift
 apps.shift
 
 apps.each do |app|
-	one = `curl --form "file=@./data.csv" #{app}/sums`.to_s
-	two = `curl --form "file=@./data.csv" #{app}/filters`.to_s
-	three = `curl --form "file=@./data.csv" #{app}/intervals`.to_s
-	four = `curl --form "file=@./data.csv" #{app}/lin_regressions`.to_s
+	one = `curl --form "file=@./A_07_Vladimir_Vladinov.csv" #{app}/sums`.to_s
+	two = `curl --form "file=@./A_07_Vladimir_Vladinov.csv" #{app}/filters`.to_s
+	three = `curl --form "file=@./A_07_Vladimir_Vladinov.csv" #{app}/intervals`.to_s
+	four = `curl --form "file=@./A_07_Vladimir_Vladinov.csv" #{app}/lin_regressions`.to_s
 	if(one == SUMS_ANSWER and two == FILTERS_ANSWER and three == INTERVALS_ANSWER and four == LINREGRESSIONS_ANSWER and app != "FAIL")
 		grades.push(1)
 	else
