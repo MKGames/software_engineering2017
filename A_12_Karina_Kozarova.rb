@@ -5,7 +5,7 @@ result_curl_1 = "90.00"
 result_curl_2 = "0.003953,1.909091"
 result_curl_3 = "150.00"
 result_curl_4 = "60.00"
-result = 1
+
 count = 0
 CSV.foreach(input_file) do |row| 
 	result = 0
@@ -21,8 +21,8 @@ CSV.foreach(input_file) do |row|
 	else 
 		result = 0
 	end
-	if count > 0
-		puts "#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{result}\n" 
+	if count > 0 && !current_url.nil?
+			puts "#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{result}\n" 
 	end
 	count+=1
 end
