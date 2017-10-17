@@ -27,6 +27,27 @@ Tests = [
                 response: "1.100000,0.000000"
             }
         ]
+    },
+    {
+        filePath: "./B_17_Martin_Datsev_2.csv",
+        requests:[
+            {
+                url: "/sums",
+                response: "-96932640.00"
+            },
+            {
+                url: "/intervals",
+                response: "1803740.00"
+            },
+            {
+                url: "/filters",
+                response: "3630.00"
+            },
+            {
+                url: "/lin_regressions",
+                response: "9424.559462,-1377957.847479"
+            }
+        ]
     }
 ]
 
@@ -41,7 +62,7 @@ csv.each do |row|
     unless row[2].nil? && row[3].nil? && row[4].nil?
         late = ((DateTime.parse(row[0]) - DeadLine)* 24 * 60 * 60).to_i;
         students.push({
-            late: late > 0 ? "(#{late} minutes late)" : "",
+            late: late > 0 ? "(#{late} seconds late)" : "",
             klas: row[1] =~ /[bBбБ]/ ? "B" : ( row[1] =~ /[aAаА]/ ? "A" : "?"),    
             number: row[2],            
             name: row[3].to_s + " " + row[4].to_s,
@@ -53,7 +74,7 @@ end
 
 students.sort_by! {|s| [s[:klas].to_s, s[:number].to_i] }
 
-ReqMaxTime = 99999;
+ReqMaxTime = 10;
 
 Thread.abort_on_exception=true
 students.each do |s|
