@@ -7,7 +7,7 @@ CSV.foreach(input_file) do |row|
 	heroku_url = row[5]
 
 	r1 = `curl -s -F \"file=@./A_19_Momchil_Todorov.csv\" #{heroku_url}/sums` 
-   	r2 = `curl -s -F \"file=@./A_19_Momchil_Todorov.csv\" #{heroku_url}/filters`  
+   	r2 = `curl -s -F \"file=@./A_19_Momchil_Todorov.csv\" #{hjeroku_url}/filters`  
 	r3 = `curl -s -F \"file=@./A_19_Momchil_Todorov.csv\" #{heroku_url}/intervals`
 	r4 = `curl -s -F \"file=@./A_19_Momchil_Todorov.csv\" #{heroku_url}/lin_regressions`
 
@@ -17,7 +17,7 @@ CSV.foreach(input_file) do |row|
 		result = 0
 	end
 	if check > 0 && !heroku_url.nil?
-			puts "#{result}\n" 
+			puts "#{row[1]}, #{row[2]} - #{result}\n" 
 	end
 	check+=1
 end 
