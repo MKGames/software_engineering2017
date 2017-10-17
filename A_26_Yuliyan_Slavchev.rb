@@ -7,10 +7,10 @@ CSV.foreach(csv_file) do |row|
 	scores = 0
 	heroku_url = row[5]
 	
-	output_01 = `curl -F "file=@/home/elsyser/A_26_Yuliyan_Slavchev.csv" #{heroku_url}/sums` 
-	output_02 = `curl -F "file=@/home/elsyser/A_26_Yuliyan_Slavchev.csv" #{heroku_url}/filters` 
-	output_03 = `curl -F "file=@/home/elsyser/A_26_Yuliyan_Slavchev.csv" #{heroku_url}/intervals` 
-	output_04 = `curl -F "file=@/home/elsyser/A_26_Yuliyan_Slavchev.csv" #{heroku_url}/lin_regressions` 
+	output_01 = `curl -F "file=@./A_26_Yuliyan_Slavchev.csv" #{heroku_url}/sums` 
+	output_02 = `curl -F "file=@./A_26_Yuliyan_Slavchev.csv" #{heroku_url}/filters` 
+	output_03 = `curl -F "file=@./A_26_Yuliyan_Slavchev.csv" #{heroku_url}/intervals` 
+	output_04 = `curl -F "file=@./A_26_Yuliyan_Slavchev.csv" #{heroku_url}/lin_regressions` 
 	if output_01 == "1275" && output_02 == "625" && output_03 == "1065" && output_04 == "1.000000,0.000000"
 		scores = 1
 	else 
