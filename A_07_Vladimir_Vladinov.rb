@@ -28,7 +28,7 @@ arr_of_arrs.each do |person|
 			s += "B"
 		end
 		s = s + " - " + person[2].to_s
-		classNum.push(s);
+		classNum.push(s)
 	end
 end
 
