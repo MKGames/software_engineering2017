@@ -3,7 +3,8 @@ require 'time'
 
 STUDENTS_DATA = ARGV[0]
 TEST_DATA = './A_04_Vencislav_Tashev.csv'
-INITIAL_CURL_REQUEST = "curl -s --form \"file=@#{TEST_DATA}\" -m 10000"
+TIMEOUT_SECONDS = 15
+INITIAL_CURL_REQUEST = "curl -s --form \"file=@#{TEST_DATA}\" -m #{TIMEOUT_SECONDS}"
 
 TESTS = [
   {
@@ -99,7 +100,7 @@ class Student
   end
 
   def to_s
-    "#{@full_name} (##{@number}, #{@clazz})"
+    "#{@full_name} (#{@clazz}, ##{@number})"
   end
 end
 
