@@ -1,21 +1,18 @@
 require "CSV" 
-
-HeroRow = 5
-ClassRow = 1
-NumRow = 2 
+Row = 5 
 arr = CSV.read(ARGV[0]) 
 
 arr.reach do |n|
-	sum = `curl --form "file=@/home/elsyser/CSV.csv" #{n[HeroRow]}/sums` 
-	filter = `curl --form "file=@/home/elsyser/CSV.csv" #{n[HeroRow]}/filters`
-	interval = `curl --form "file=@/home/elsyser/CSV.csv" #{n[HeroRow]}/intervals`
-	lin-regression = `curl --form "file=@/home/elsyser/CSV.csv" #{n[HeroRow]}/lin_regression` 
-	p sum, filter, interval, lin_regression
+	sum = `curl --form "file=@/home/elsyser/CSV.csv" #{n[Row]}/sums` 
+	filter = `curl --form "file=@/home/elsyser/CSV.csv" #{n[Row]}/filters`
+	interval = `curl --form "file=@/home/elsyser/CSV.csv" #{n[Row]}/intervals`
+	lin-regression = `curl --form "file=@/home/elsyser/CSV.csv" #{n[Row]}/lin_regression` 
+	p sum, filter, interval 
 	if(n[1] == NULL || n[2] == NULL || n[2] == NULL || n[4] == NULL || n[5] == NULL || n[6] == NULL)
-	if(sum ==  ** && filters == ** && intervals == ** && lin_regression == **) 
-	    p "#{n[ClassRow]} #{n[NumRow]} 1"
- 	else 
-		p  "#{n[ClassRow]} #{n[NumRow]} 0"
+	if(sum ==  528.00 && filters == 272.00 && intervals == 525.00 ) 
+	   	p "#{n[1]} #{n[2]} #{n[3]}  pass"
+		else
+			p "#{n[1]} #{n[2]} #{n[3]} fail"
 		end
 	end
-end 
+end
