@@ -20,7 +20,7 @@ require 'csv'
 				result = 0
 			end
 
-			puts row[2] + " " + row[3] + " " + row[4] + " " + result.to_s
+			puts row[1] + "," + row[2] + "," + row[3] + "," + row[4] + "," + result.to_s
 		end
 
 
