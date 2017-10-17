@@ -14,7 +14,7 @@ csvget = ARGV[0]
 	answ3 = `curl -F \"file=@./B_22_Svetoslav_Pavlov.csv\" #{url}/filters`
 	answ4 = `curl -F \"file=@./B_22_Svetoslav_Pavlov.csv\" #{url}/intervals`
 	
-	if answ1 == "90.00" && answ2 == "0.003953,1.909091" && answ3 == "150.00" && answ4 == "60.00"
+	if answ1 == "45.00" && answ2 == "0.024510,2.426471" && answ3 == "0.00" && answ4 == "0.00"
 		#proverqvame otgovorite na zadachite s inputa ot CSV-to
 		answ=1
 	else 
