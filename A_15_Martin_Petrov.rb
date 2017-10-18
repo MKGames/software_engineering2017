@@ -28,7 +28,7 @@ arrays.each do |each|
       elsif(paralelka == "a" or paralelka == "A" or paralelka == "А" or paralelka == "а")
       st += "A"
     end
-    st = st + " - №" + each[2].to_s
+    st = st + " " + each[2].to_s
     class_num.push(st)
   end
 end
