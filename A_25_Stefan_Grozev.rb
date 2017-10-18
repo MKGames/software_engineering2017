@@ -19,5 +19,9 @@ CSV.foreach(csv_file) do |row|
 	else 
 		result = 0
 	end
+<<<<<<< HEAD
 	puts "#{row[1]} #{row[3]} #{row[4]} #{result}" 
+=======
+	puts result
+>>>>>>> b186fea1807779ef3a6b7b276c0da2e7b07ac877
 end
