@@ -49,7 +49,7 @@ class Student
 
     answers = []
     @@paths.each do |path|
-      result = `curl -s -F "file=@#{ARGV[1]}" #{@url}#{path} -m 2`
+      result = `curl -s -F "file=@#{ARGV[1]}" #{@url}#{path} -m 10`
       answers << result
     end
     # $all_answers << answers
