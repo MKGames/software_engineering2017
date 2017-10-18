@@ -22,3 +22,8 @@ CSV.foreach(csv_file) do |row|
 
 	puts "#{row[1]} #{row[3]} #{row[4]} #{result}" 
 end
+
+#1) Output = A_##_F_R_result.csv
+#H S C 
+# 	fixture
+# ruby mp.rb 1.csv 2.csv
