@@ -65,7 +65,7 @@ csv.each do |row|
             late: late > 0 ? "(#{late} seconds late)" : "",
             klas: row[1] =~ /[bBбБ]/ ? "B" : ( row[1] =~ /[aAаА]/ ? "A" : "?"),    
             number: row[2],            
-            name: row[3].to_s + " " + row[4].to_s,
+            name: row[3].to_s + "," + row[4].to_s,
             hurl: row[5],
             done: false
         })
