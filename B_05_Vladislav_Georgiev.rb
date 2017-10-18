@@ -15,16 +15,16 @@ file.drop(1).each do |row|
 			p "#{count}.#{row[3]} #{row[4]} => 0 (After the deadline #{row[0].split(' ')[0]})"
 		else
 		if row[5][-1]=="/"
-			sum= `curl --form 'file=@/home/vladislav/testing.csv' #{row[5]}sums --max-time 5 2>/dev/null`
-			filter= `curl --form 'file=@/home/vladislav/testing.csv' #{row[5]}filters --max-time 5 2>/dev/null`
-			interval= `curl --form 'file=@/home/vladislav/testing.csv' #{row[5]}intervals --max-time 5 2>/dev/null`
-			regression= `curl --form 'file=@/home/vladislav/testing.csv' #{row[5]}lin_regressions --max-time 5 2>/dev/null`
+			sum= `curl --form 'file=@./B_05_Vladislav_Georgiev.csv' #{row[5]}sums --max-time 5 2>/dev/null`
+			filter= `curl --form 'file=@./B_05_Vladislav_Georgiev.csv' #{row[5]}filters --max-time 5 2>/dev/null`
+			interval= `curl --form 'file=@./B_05_Vladislav_Georgiev.csv' #{row[5]}intervals --max-time 5 2>/dev/null`
+			regression= `curl --form 'file=@./B_05_Vladislav_Georgiev.csv' #{row[5]}lin_regressions --max-time 5 2>/dev/null`
 				
 		else
-			sum= `curl --form 'file=@/home/vladislav/testing.csv' #{row[5]}/sums --max-time 5 2>/dev/null`
-			filter= `curl --form 'file=@/home/vladislav/testing.csv' #{row[5]}/filters --max-time 5 2>/dev/null`
-			interval= `curl --form 'file=@/home/vladislav/testing.csv' #{row[5]}/intervals --max-time 5 2>/dev/null`
-			regression= `curl --form 'file=@/home/vladislav/testing.csv' #{row[5]}/lin_regressions --max-time 5 2>/dev/null`
+			sum= `curl --form 'file=@./B_05_Vladislav_Georgiev.csv' #{row[5]}/sums --max-time 5 2>/dev/null`
+			filter= `curl --form 'file=@./B_05_Vladislav_Georgiev.csv' #{row[5]}/filters --max-time 5 2>/dev/null`
+			interval= `curl --form 'file=@./B_05_Vladislav_Georgiev.csv' #{row[5]}/intervals --max-time 5 2>/dev/null`
+			regression= `curl --form 'file=@./B_05_Vladislav_Georgiev.csv' #{row[5]}/lin_regressions --max-time 5 2>/dev/null`
 		end 
 		if sum=="528.00" && filter=="272.00" && interval=="525.00" && regression=="1.000000,0.000000"
         		p "#{count}.#{row[3]} #{row[4]} => 1"
