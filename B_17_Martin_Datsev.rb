@@ -79,7 +79,7 @@ ReqMaxTime = 10;
 Thread.abort_on_exception=true
 students.each do |s|
     Thread.new do
-        result = "1"
+        result = "1" 
         Tests.each do |test| 
             test[:requests].each do |req|
                 res = `curl --form \"file=@#{test[:filePath]}\" #{s[:hurl]}#{req[:url]} 2>/dev/null -m #{ReqMaxTime}`;        
@@ -91,7 +91,7 @@ students.each do |s|
             end
         end
         s[:done] = true;
-        row = sprintf "%s%02d %s %s\t%s\n", s[:klas], s[:number], s[:name].ljust(22), result, s[:late]
+        row = sprintf "%s,%02d,%s,%s\n", s[:klas], s[:number], s[:name], s[:late] != "" ? "0" : result
         if result == "0"
             printf row.red
         elsif s[:late] != ""
