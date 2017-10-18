@@ -72,9 +72,9 @@ csv.each do |row|
     end
 end
 
-students.sort_by! {|s| [s[:klas].to_s, s[:number].to_i] }
+#students.sort_by! {|s| [s[:klas].to_s, s[:number].to_i] }
 
-ReqMaxTime = 10;
+ReqMaxTime = 15;
 
 Thread.abort_on_exception=true
 students.each do |s|
@@ -82,7 +82,7 @@ students.each do |s|
         result = "1"
         Tests.each do |test| 
             test[:requests].each do |req|
-                res = `curl --form \"file=@#{test[:filePath]}\" #{s[:hurl]}#{req[:url]} 2>/dev/null -m #{ReqMaxTime}`;        
+                res = `curl --form \"file=@#{test[:filePath]}\" #{s[:hurl]}#{req[:url]} 2>/dev/null -m #{ReqMaxTime}`;    
                 if(res != req[:response])
                     result = "0";
                     break;
@@ -91,7 +91,7 @@ students.each do |s|
             end
         end
         s[:done] = true;
-        row = sprintf "%s%02d %s %s\t%s\n", s[:klas], s[:number], s[:name].ljust(22), result, s[:late]
+        row = sprintf "%s,%02d,%s,%s\n", s[:klas], s[:number], s[:name], result
         if result == "0"
             printf row.red
         elsif s[:late] != ""

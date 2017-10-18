@@ -12,9 +12,9 @@ arr.each do |n|
 	lin_regression = `curl -F "file=@/root/workspace/file.csv" #{n[HeroRow]}/lin_regressions 2>/dev/null`.to_s
 	if(n[1] != "" && n[2] != "" && n[3] != "" && n[4] != "" && n[5] != "" && n[6] != "")
 		if(sum == "2567.00" && filter == "5873.00" && interval == "2562.00" && lin_regression == "8.812097,-58.187097")
-			p "#{n[ClassRow]} #{n[NumRow]} #{n[3]} #{n[4]} 1"
+			puts "#{n[ClassRow]}, #{n[NumRow]}, #{n[3]}, #{n[4]}, 1"
 		else
-			p "#{n[ClassRow]} #{n[NumRow]} #{n[3]} #{n[4]} 0"
+			puts "#{n[ClassRow]}, #{n[NumRow]}, #{n[3]}, #{n[4]}, 0"
 		end
 	end
 end
