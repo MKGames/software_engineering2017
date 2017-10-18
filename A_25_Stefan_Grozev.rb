@@ -1,6 +1,6 @@
 require 'csv'
 
-csv_file = argv[0]
+csv_file = ARGV[0]
 
 result = 1
 
