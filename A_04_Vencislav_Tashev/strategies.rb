@@ -1,3 +1,5 @@
+require './utils'
+
 class String
   def colorize(color_code)
     "\e[#{color_code}m#{self}\e[0m"
@@ -18,15 +20,23 @@ class String
   def light_blue
     colorize(36)
   end
+
+  def good
+    "#{"\u2713".encode('utf-8')} #{self.green}"
+  end
+
+  def bad
+    "#{"\u2613".encode('utf-8')} #{self.red}"
+  end
 end
 
 class BaseStrategy
   def initialize(tests, students)
-    raise 'Tests should be in array' unless tests.is_a?(Array)
-    raise 'Students should be in array' unless students.is_a?(Array)
+    raise 'Tests should be an array.' unless tests.is_a?(Array)
+    raise 'Students should be an array.' unless students.is_a?(Array)
 
     @tests = tests
-    @students = students
+    @students = students.sort_by { |s| [s.clazz, s.number] }
   end
 
   def get_grade
@@ -36,10 +46,6 @@ class BaseStrategy
     total_tests == passed_tests ? 1 : 0
   end
 
-  def sorted_students
-    @students.sort_by { |s| [s.clazz, s.number] }
-  end
-
   def represent_results
     raise NotImplementedError
   end
@@ -47,31 +53,52 @@ end
 
 class CSVStrategy < BaseStrategy
   def represent_results
-    # TODO: Threads
+    puts '... Calculating results ...'.yellow
 
-    self.sorted_students.each.with_index do |student, index|
-      if student.on_time?
-        @tests.each do |test|
-          test.run student.url_string
+    output_file = Constants::OUTPUT_FILE
+    CSV.open(output_file, 'wb') do |csv|
+      csv << ['Клас', 'Номер', 'Име', 'Резултат']
+
+      @students.each do |student|
+        if student.on_time?
+          @tests.each do |test|
+            test.run student.url_string
+          end
+
+          grade = self.get_grade
+        else
+          grade = "0 (Delayed with #{student.delay} seconds)"
         end
 
-        puts "#{student} - #{self.get_grade}"
-      else
-        puts "#{student} - 0 (late)"
+        csv << [student.clazz, student.number, student.full_name, grade]
       end
     end
+
+    puts "Results written in #{output_file}".green
   end
 end
 
 class PrettyStrategy < BaseStrategy
   @@delimiter = '-' * 45
 
-  def get_grade_representation
+  def grade_representation
     "Total grade: #{self.get_grade}".light_blue
   end
 
+  def test_status_text(test)
+    status_text = "Test on \"#{test.action}\""
+
+    if test.passed
+      status_text << ' passed'
+      status_text.good
+    else
+      status_text << ' failed'
+      status_text.bad
+    end
+  end
+
   def represent_results
-    self.sorted_students.each do |student|
+    @students.each do |student|
       puts "Testing #{student}:".yellow
 
       if student.on_time?
@@ -79,10 +106,10 @@ class PrettyStrategy < BaseStrategy
 
         @tests.each do |test|
           test.run student.url_string
-          puts "\t#{test.status_text}"
+          puts "\t#{self.test_status_text test}"
         end
 
-        puts "\n\t#{self.get_grade_representation}"
+        puts "\n\t#{self.grade_representation}"
       else
         puts "\tSubmission delayed with #{student.delay} secs.".red
         puts "\tNo tests runned".red

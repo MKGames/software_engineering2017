@@ -1,18 +1,17 @@
 require 'csv'
-require 'time'
+require 'optparse'
 
 require './student'
 require './test_case'
 require './strategies'
 
-
-if ARGV.empty?
-    puts "Usage: #{$0} [data.csv] [options]"
+if ARGV.size < 2
+    puts "Usage: #{$0} <data.csv> <fixture.csv> [options]"
     exit
 end
 
 STUDENTS_DATA = ARGV[0]
-STRATEGY = ARGV[1]
+FIXTURE_DATA = ARGV[1]
 TESTS = [
   {
     action: 'sums',
@@ -32,7 +31,18 @@ TESTS = [
   }
 ]
 
-# ------------------------------------------------------------------------------
+options = {}
+OptionParser.new do |opts|
+  opts.on('-p', '--pretty') do
+    options[:pretty] = true
+  end
+end.parse!
+
+def get_strategy(tests, students)
+  strategy_class = options[:pretty] ? PrettyStrategy : CSVStrategy
+
+  strategy_class.new tests, students
+end
 
 def generate_students(csv_file)
   students = []
@@ -71,6 +81,5 @@ end
 test_cases = generate_test_cases TESTS
 students = generate_students STUDENTS_DATA
 
-strategy_class = STRATEGY == '--pretty' ? PrettyStrategy : CSVStrategy
-strategy = strategy_class.new test_cases, students
+strategy = get_strategy test_cases, students
 strategy.represent_results
