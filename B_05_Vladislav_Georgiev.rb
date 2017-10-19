@@ -51,7 +51,8 @@ file.drop(1).each do |row|
 			count+=1
 			if count==filelenght 
 				edited.sort_by! {|row| [row[1].to_s, row[2].to_i] }
-				open(resultFile, 'w ') { |f|
+				p edited
+				open(resultFile, 'w') { |f|				
 					f.puts "Клас,Номер,Пръво име,Фамилия,Резултат"
 	  				edited.each do |row|
 						f.puts "#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{row[7]}"					
