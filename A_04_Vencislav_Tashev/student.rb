@@ -23,10 +23,11 @@ class Student
     clazz.gsub!(' ', '')
     clazz.gsub!('10', '11')
     clazz.gsub!('XI', '11')
-    clazz.gsub!(/[aAаА]/, 'A')
-    clazz.gsub!(/[bBбБ]/, 'B')
-    clazz.gsub!(/^A$/, '11A')
-    clazz.gsub!(/^B$/, '11B')
+    clazz.gsub!(/[aAаА]/, 'А')
+    clazz.gsub!(/[bBбБ]/, 'Б')
+    clazz.gsub!(/^А$/, '11А')
+    clazz.gsub!(/^Б$/, '11Б')
+    clazz.gsub!(/^11$/, '?')
     clazz
   end
 
@@ -35,15 +36,15 @@ class Student
   end
 
   def full_name
-    "#{@first_name} #{@last_name}"
-  end
-
-  def on_time?
-    @timestamp <= @@deadline
+    "#{self.first_name} #{self.last_name}"
   end
 
   def delay
     @@deadline.delay_in_seconds @timestamp
+  end
+
+  def on_time?
+    @timestamp <= @@deadline
   end
 
   def to_s
