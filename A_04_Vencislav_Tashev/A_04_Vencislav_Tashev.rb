@@ -31,16 +31,15 @@ TESTS = [
   }
 ]
 
-options = {}
-OptionParser.new do |opts|
-  opts.on('-p', '--pretty') do
-    options[:pretty] = true
-  end
-end.parse!
-
 def get_strategy(tests, students)
-  strategy_class = options[:pretty] ? PrettyStrategy : CSVStrategy
+  options = {}
+  OptionParser.new do |opts|
+    opts.on('-p', '--pretty') do
+      options[:pretty] = true
+    end
+  end.parse!
 
+  strategy_class = options[:pretty] ? PrettyStrategy : CSVStrategy
   strategy_class.new tests, students
 end
 
