@@ -67,7 +67,6 @@ students.each do |s|
         Tests.each do |test| 
             test[:requests].each do |req|
                 res = `curl --form \"file=@#{test[:filePath]}\" #{s[:hurl]}#{req[:url]} 2>/dev/null -m #{ReqMaxTime}`;
-
                 if(res != req[:response])
                     result = "0";
                     break;
@@ -76,6 +75,7 @@ students.each do |s|
         end
         s[:done] = true;
         s[:row] = sprintf "%s,%02d,%s,%s\n", s[:klas], s[:number], s[:name], result
+        puts s[:row]
         if students.all? {|t| t[:done] }
             open("./B_17_Martin_Datsev_results.csv", 'w') { |f|
                 students.sort_by! {|s| [s[:klas].to_s, s[:number].to_i] }
