@@ -2,7 +2,7 @@ require "csv"
 require "date"
 
 arr = CSV.read(ARGV[0])
-
+fixture = CSV.read(ARGV[1])
 len = arr.drop(1).length
 counter = 0
 #results = []
@@ -18,8 +18,9 @@ arr.drop(1).each do |n|
 			interval = `curl -s --form "file=@./B_21_Roberta_Netzova.csv" #{n[5]}/intervals`.to_s
 			lin_regression = `curl -s --form "file=@./B_21_Roberta_Netzova.csv" #{n[5]}/lin_regressions`.to_s
 		
+			reg = fixture[0][3].to_s + ',' + fixture[0][4].to_s
 
-			if(sum == "126.00" && filter == "40.00" && interval == "118.00" && lin_regression == "0.014006,3.347899")
+			if(sum == fixture[0][0] && filter == fixture[0][1] && interval == fixture[0][2] && lin_regression == reg)
 				#results.push("#{n[1]},#{n[2]},#{n[3]},#{n[4]},1")
 				puts "#{n[1]},#{n[2]},#{n[3]},#{n[4]},1"
 			else
