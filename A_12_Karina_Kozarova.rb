@@ -2,17 +2,21 @@ require 'csv'
 input_csv_file_with_links = ARGV[0]
 fixture_csv = ARGV[1]
 
-	result_curl_1 = 0
-	result_curl_2 = 0	
-	result_curl_3 = 0
-	result_curl_4 = 0
+result_curl_1 = 0
+result_curl_2 = 0	
+result_curl_3 = 0
+result_curl_4 = 0
+count = 0
+
 
 CSV.foreach(fixture_csv) do |row| 
-	result_curl_1 = row[0]
-	result_curl_2 = row[1]
-	result_curl_3 = row[2]
-	result_curl_4 = row[3]
-
+	count += 1
+	if count <= 1 # reads only the header
+		result_curl_1 = row[0]
+		result_curl_2 = row[1]
+		result_curl_3 = row[2]
+		result_curl_4 = row[3]
+	end
 	# result_curl_2_0 = row[1]
 	# result_curl_2_1 = row[2]
 	# result_curl_2 = "#{result_curl_2_0},#{result_curl_2_1}"
