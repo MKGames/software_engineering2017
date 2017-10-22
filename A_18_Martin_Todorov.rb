@@ -14,6 +14,6 @@ CSV.foreach(csv_file) do |row|
 	    	isWorking = 1
 	    else isWorking = 0      
 	    end
-	    puts "#{row[1]} | #{row[2]} | #{row[3]} | #{row[4]} | #{isWorking}"   			
+	    puts "#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{isWorking}"   			
 	end
 end

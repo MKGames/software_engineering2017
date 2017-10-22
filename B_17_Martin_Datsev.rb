@@ -3,49 +3,41 @@ class String
     def green;          "\e[32m#{self}\e[0m" end
     def brown;          "\e[33m#{self}\e[0m" end 
 end
+
 require 'csv'
 require 'time'
 
+TempFilePath = "./temp.csv";
+
+testfile = CSV.parse(File.read(ARGV[1]))
+
+open(TempFilePath, 'w') { |f|
+    testfile.drop(1).each do |row|
+        f.puts row.join(",")
+    end
+}
+
+fixtures_header = testfile[0]
+
 Tests = [
     {
-        filePath: "./B_17_Martin_Datsev.csv",
+        filePath: TempFilePath,
         requests:[
             {
                 url: "/sums",
-                response: "11.00"
-            },
-            {
-                url: "/intervals",
-                response: "11.00"
+                response: fixtures_header[0]
             },
             {
                 url: "/filters",
-                response: "8.00"
-            },
-            {
-                url: "/lin_regressions",
-                response: "1.100000,0.000000"
-            }
-        ]
-    },
-    {
-        filePath: "./B_17_Martin_Datsev_2.csv",
-        requests:[
-            {
-                url: "/sums",
-                response: "-96932640.00"
+                response: fixtures_header[1]
             },
             {
                 url: "/intervals",
-                response: "1803740.00"
-            },
-            {
-                url: "/filters",
-                response: "3630.00"
+                response: fixtures_header[2]
             },
             {
                 url: "/lin_regressions",
-                response: "9424.559462,-1377957.847479"
+                response: fixtures_header[3]
             }
         ]
     }
@@ -65,16 +57,14 @@ csv.each do |row|
             late: late > 0 ? "(#{late} seconds late)" : "",
             klas: row[1] =~ /[bBбБ]/ ? "B" : ( row[1] =~ /[aAаА]/ ? "A" : "?"),    
             number: row[2],            
-            name: row[3].to_s + " " + row[4].to_s,
+            name: row[3].to_s + "," + row[4].to_s,
             hurl: row[5],
             done: false
         })
     end
 end
 
-students.sort_by! {|s| [s[:klas].to_s, s[:number].to_i] }
-
-ReqMaxTime = 10;
+ReqMaxTime = 15;
 
 Thread.abort_on_exception=true
 students.each do |s|
@@ -82,24 +72,24 @@ students.each do |s|
         result = "1"
         Tests.each do |test| 
             test[:requests].each do |req|
-                res = `curl --form \"file=@#{test[:filePath]}\" #{s[:hurl]}#{req[:url]} 2>/dev/null -m #{ReqMaxTime}`;        
+                res = `curl --form \"file=@#{test[:filePath]}\" #{s[:hurl]}#{req[:url]} 2>/dev/null -m #{ReqMaxTime}`;
                 if(res != req[:response])
                     result = "0";
                     break;
                 end
-                #s[:timeout] = res.start_with?("curl: (28)") ? "(request timeout)" : "asdfsadf";
             end
         end
         s[:done] = true;
-        row = sprintf "%s%02d %s %s\t%s\n", s[:klas], s[:number], s[:name].ljust(22), result, s[:late]
-        if result == "0"
-            printf row.red
-        elsif s[:late] != ""
-            printf row.brown
-        else 
-            printf row.green
-        end
+        s[:row] = sprintf "%s,%02d,%s,%s\n", s[:klas], s[:number], s[:name], result
+        print result == "1" ? s[:row].green : s[:row].red
         if students.all? {|t| t[:done] }
+            open("./B_17_Martin_Datsev_results.csv", 'w') { |f|
+                students.sort_by! {|s| [s[:klas].to_s, s[:number].to_i] }
+                students.each do |o|
+                    f.print o[:row]
+                end
+            }
+            File.delete(TempFilePath)
             exit
         end
         printf students.select{|t| t[:done]}.size.to_s + "/" + students.size.to_s + "\r";

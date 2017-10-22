@@ -3,7 +3,7 @@ require 'csv'
 SUMS_ANSWER = '1830.00'
 FILTERS_ANSWER = '896.00'
 INTERVALS_ANSWER = '1365.00'
-LIN_REGRESSIONS_ANSWER = '1.00, 0.00'
+LIN_REGRESSIONS_ANSWER = '1.000000,0.000000'
 
 heroku = []
 class_num = []
@@ -28,7 +28,7 @@ arrays.each do |each|
       elsif(paralelka == "a" or paralelka == "A" or paralelka == "А" or paralelka == "а")
       st += "A"
     end
-    st = st + " - №" + each[2].to_s
+    st = st + " " + each[2].to_s
     class_num.push(st)
   end
 end

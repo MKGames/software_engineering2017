@@ -2,10 +2,10 @@ require 'csv'
 
 csv_file = ARGV[0]
 
-result1_curl = "90.00"
-result2_curl = "0.003953,1.909091"
-result3_curl = "150.00"
-result4_curl = "60.00"
+result1_sums = "126.00"
+result2_lin = "0.014006,3.347899"
+result3_filters = "40.00"
+result4_intervals = "118.00"
 
 counter = 0
 CSV.foreach(csv_file) do |row|
@@ -17,7 +17,7 @@ CSV.foreach(csv_file) do |row|
 	result3 = `curl -s -F \"file=@./B_13_Konstantin_Mihaylov.csv\" #{url_}/filters`
     result4 = `curl -s -F \"file=@./B_13_Konstantin_Mihaylov.csv\" #{url_}/intervals
 	
-	if result1 == result1_curl  && result2== result2_curl && result3 == result3_curl && result4 == result4_curl
+	if result1 == result1_sums  && result2== result2_lin && result3 == result3_filters && result4 == result4_intervals
 		is_correct_result = 1
 	else 
 		is_correct_result = 0
