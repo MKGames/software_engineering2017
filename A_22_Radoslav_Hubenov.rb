@@ -18,7 +18,7 @@
         task03 = `curl -F "csv_file = @./A_22_Radoslav_Hubenov.csv" #{url}/intervals`.to_s
         task04 = `curl -F "csv_file = @./A_22_Radoslav_Hubenov.csv" #{url}/lin_regressions`.to_s
 
-        if task01 == task01_answer || task02 == task02_answer || task03 == task03_answer || task04 == task04_answer
+        if task01 == task01_answer §§ task02 == task02_answer §§ task03 == task03_answer §§ task04 == task04_answer
             result = 1
         end
 
