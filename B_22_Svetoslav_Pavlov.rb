@@ -1,24 +1,31 @@
-require "csv"
-csvget = ARGV[0]
-	answ=1
-	#za vseki red, obikalqi znachi CSV.
-		CSV.foreach(csvget) do |row|
-			answ=0
-			url = row[5]
-			#vuv failut koito ste kachili, petata kolona e heroku i url vzima stoinostta na heroku linka.
-		#r1-4 - vrushtat stoinosti sled podadeni curl zaqvki. Kato se podadat v url adresa i to se namira zadachata
-		puts"Current: #{url} #{row[3]} #{row[4]} \n"
-			#na vsqka ot zadachite ot domashnoto vzimame answer koito da sochi s curl zaqvka
-	answ1 = `curl -F \"file=@./B_22_Svetoslav_Pavlov.csv\" #{url}/sums`
-	answ2 = `curl -F \"file=@./B_22_Svetoslav_Pavlov.csv\" #{url}/lin_regressions`
-	answ3 = `curl -F \"file=@./B_22_Svetoslav_Pavlov.csv\" #{url}/filters`
-	answ4 = `curl -F \"file=@./B_22_Svetoslav_Pavlov.csv\" #{url}/intervals`
-	
-	if answ1 == "45.00" && answ2 == "0.024510,2.426471" && answ3 == "0.00" && answ4 == "0.00"
-		#proverqvame otgovorite na zadachite s inputa ot CSV-to
-		answ=1
-	else 
-	answ=0
+require 'csv'
+
+csv_file = ARGV[0]
+fixtures = CSV.parse(File.read(ARGV[1]))
+
+
+open("./temp.csv", 'w') { |f|
+    fixtures.drop(1).each do |row|
+        f.puts row.join(",")
+    end
+}
+
+CSV.foreach(csv_file, :headers => true) do |row|
+    if (row[1]!= nil && row[2]!= nil && row[3]!= nil && row[4]!= nil && row[5]!= nil && row[6]!= nil)
+    
+    url = row[5] 
+    r1 = `curl -s -F \"file=@./temp.csv\" #{url}/sums`.to_s 
+       r4 = `curl -s -F \"file=@./temp.csv\" #{url}/lin_regressions`.to_s  
+    r2 = `curl -s -F \"file=@./temp.csv\" #{url}/filters`.to_s  
+    r3 = `curl -s -F \"file=@./temp.csv\" #{url}/intervals`.to_s  
+
+    lin_reg = fixtures[0][3].to_s
+    if (r1 == fixtures[0][0] && r2 == fixtures[0][1]  && r3 == fixtures[0][2]  && r4 == lin_reg )
+          puts "#{row[1]}, #{row[2]}, #{row[3]}, #{row[4]}, 1"
+    
+    else
+
+     puts "#{row[1]}, #{row[2]}, #{row[3]}, #{row[4]}, 0"
+    end
 end
-	puts answ
 end
