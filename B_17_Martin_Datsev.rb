@@ -89,6 +89,7 @@ students.each do |s|
                     f.print o[:row]
                 end
             }
+            File.delete(TempFilePath)
             exit
         end
         printf students.select{|t| t[:done]}.size.to_s + "/" + students.size.to_s + "\r";
