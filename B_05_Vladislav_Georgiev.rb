@@ -43,9 +43,11 @@ file.drop(1).each do |row|
 				end 	
 				if sum==fixture[0][0] && filter==fixture[0][1] && interval==fixture[0][2] && regression==fixture[0][3]+","+fixture[0][4]
 					row[7]=1
+					
 					edited.push(row)
 				else
 					row[7]=0
+					
 					edited.push(row)
 				end
 			end	
@@ -55,6 +57,7 @@ file.drop(1).each do |row|
 				open(resultFile, 'w') { |f|				
 					f.puts "Клас,Номер,Пръво име,Фамилия,Резултат"
 	  				edited.each do |row|
+						p "#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{row[7]}"
 						f.puts "#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{row[7]}"					
 					end
 				}

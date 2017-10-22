@@ -2,17 +2,37 @@ require 'csv'
 
 file = ARGV[0]
 
+fixture = ARGV[1];
+
+
 r = 0;
 
+countr = 0
+
+sums = 0
+filters = 0
+intervals = 0
+lin_regressions = 0
+
+CSV.foreach(fixture) do |row|
+    if countr == 0
+        sums = row[0].tu_s
+        filters = row[1].tu_s
+        intervals = row[2].to_s
+        lin_regressions = row[3].to_s
+        next
+    end
+    countr += 1
+end
+
 CSV.foreach(file) do |row|
-    puts "curl request to #{row[5]}"
-    r1 = `curl -s -m 3 --form \"file = @./A_06_Viktor_Naychev.csv\" #{row[5]}/sums`.to_s
+    r1 = `curl -s -m 3 --form \"file = @./#{fixture}" #{row[5]}/sums`.to_s
     #puts "Operation returned #{r1}"
-    r2 = `curl -s -m 3 --form \"file = @./A_06_Viktor_Naychev.csv\" #{row[5]}/filters`.to_s
+    r2 = `curl -s -m 3 --form \"file = @./#{fixture}" #{row[5]}/filters`.to_s
     #puts "Operation returned #{r2}"
-    r3 = `curl -s -m 3 --form \"file = @./A_06_Viktor_Naychev.csv\" #{row[5]}/intervals`.to_s
+    r3 = `curl -s -m 3 --form \"file = @./#{fixture}" #{row[5]}/intervals`.to_s
     #puts "Operation returned #{r3}"
-    r4 = `curl -s -m 3 --form \"file = @./A_06_Viktor_Naychev.csv\" #{row[5]}/lin_regressions`.to_s
+    r4 = `curl -s -m 3 --form \"file = @./#{fixture}" #{row[5]}/lin_regressions`.to_s
     #puts "Operation returned #{r4}" 
 
     #r1 = (r1 == "465.00")
@@ -20,9 +40,9 @@ CSV.foreach(file) do |row|
     #r3 = (r3 == "465.00")
     #r4 = (r4 == "1.000000,1.000000")
     
-    if r1 == "465.00" || r2 == "225.00" || r3 == "465.00" || r4 == "1.000000,1.000000"
+    if r1 == sums || r2 == filters || r3 == intervals || r4 == lin_regressions
         r = 1
     end
 
-    puts "#{row[1]} #{row[2]} #{row[3]} #{row[4]} #{r}" 
+    puts "#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{r}" 
 end
