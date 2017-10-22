@@ -1,7 +1,8 @@
 require 'csv'
 
 csv_file = ARGV[0]
-fixtures = CSV.parse(File.read(ARGV[1]))
+file = File.read(ARGV[1])
+fixtures = CSV.parse(file)
 #result = 0
 
 open("./fixtures.csv", 'w') { |f|
