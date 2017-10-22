@@ -27,12 +27,21 @@ class String
 end
 
 TestCsvPath = "./B_21_Roberta_Netzova.csv"
-Timeout = 10
-
+Timeout = 20
+TempFilePath = "./tempFile.csv"
 counter = 0
 
+
+fixture = CSV.parse(File.read(ARGV[1]))
+
+open(TempFilePath, 'w') { |f|
+    fixture.drop(1).each do |row|
+        f.puts row.join(",")
+    end
+} 
+
 csv = File.read(ARGV[0])
-fixture = CSV.read(ARGV[1])
+
 csv_file = CSV.parse(csv, :headers => true)
 deadline = Date.parse('2017-10-10')
 dataForFile = []
@@ -42,7 +51,7 @@ tests = [
 	["/sums", "#{fixture[0][0]}"], 
 	["/intervals", "#{fixture[0][2]}"], 
 	["/filters", "#{fixture[0][1]}"],
-	["/lin_regressions", "#{fixture[0][3]},#{fixture[0][4]}"]
+	["/lin_regressions", "#{fixture[0][3]}"]
 ]
 csv_file.each do |row|
 	counter += 1
@@ -50,7 +59,7 @@ csv_file.each do |row|
 		result = 1;
 		unless row[3].nil? && row[4].nil? && row[5].nil?
 			hUrl = row[5]
-			curl = "curl --form \"file=@#{TestCsvPath}\" #{hUrl}"
+			curl = "curl --form \"file=@#{TempFilePath}\" #{hUrl}"
 			date = Date.parse(row[0].split(' ')[0]) 
 			if row[1] =~/[BbБб]/
 				row[1] = "11Б"
@@ -83,10 +92,12 @@ csv_file.each do |row|
 			open(resultFilePath, 'w') { |f|
 				f.puts "Клас,Номер,Име,Фамилия,Резултат"
 	  			dataForFile.each do |row|
-	  				puts "#{row[0]},#{row[1]},#{row[2]},#{row[3]},#{row[4]}"
-					f.puts "#{row[0]},#{row[1]},#{row[2]},#{row[3]},#{row[4]}"					
+	  				tempString = "#{row[0]},#{row[1]},#{row[2]},#{row[3]},#{row[4]}"
+	  				puts row[4] == 1 ? tempString.green :  tempString.red
+					f.puts tempString					
 				end
 			}
+			File.delete(TempFilePath)
 			exit
 		end
 	end 
