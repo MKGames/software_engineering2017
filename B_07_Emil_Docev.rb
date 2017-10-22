@@ -12,7 +12,7 @@ CSV.foreach(file,:headers => true) do |row|
 		 herokuurl = row[5]
 		 
 	
-		 sum = `curl –form "file=@ /home/Dcomunets/CSV.csv" #{row[5]}/sums.to_s
+		 sum = `curl –form "file=@ /home/Dcomunets/CSV.csv" #{row[5]}/sums`.to_s
 		 filter = `curl –form "file=@/home/Documents/CSV.csv" #{row[5]}/filters`.to_s
 		 interval = `curl –form "file=@/home/Documents/CSV.csv" #{row[5]}/intervals`.to_s
 		 	
