@@ -1,21 +1,33 @@
-require "CSV" 
+require 'csv'
 
-HeroRow = 5
-ClassRow = 1
-NumRow = 2 
-arr = CSV.read(ARGV[0]) 
 
-arr.reach do |n|
-	sum = `curl --form "file=@/home/elsyser/CSV.csv" #{n[HeroRow]}/sums` 
-	filter = `curl --form "file=@/home/elsyser/CSV.csv" #{n[HeroRow]}/filters`
-	interval = `curl --form "file=@/home/elsyser/CSV.csv" #{n[HeroRow]}/intervals`
-	lin-regression = `curl --form "file=@/home/elsyser/CSV.csv" #{n[HeroRow]}/lin_regression` 
-	p sum, filter, interval, lin_regression
-	if(n[1] == NULL || n[2] == NULL || n[2] == NULL || n[4] == NULL || n[5] == NULL || n[6] == NULL)
-	if(sum ==  ** && filters == ** && intervals == ** && lin_regression == **) 
-	    p "#{n[ClassRow]} #{n[NumRow]} 1"
- 	else 
-		p  "#{n[ClassRow]} #{n[NumRow]} 0"
-		end
-	end
-end 
+file = ARGV[0]
+content = File.read(ARGV[1])
+test = CSV.parse(content)
+
+CSV.foreach(file,:headers => true) do |row|
+	
+		unless row[2].nil? && row[3].nil && row[4]?
+				
+		 herokuurl = row[5]
+		 
+	
+		 sum = `curl –form "file=@ /home/Dcomunets/CSV.csv" #{row[5]}/sums`.to_s
+		 filter = `curl –form "file=@/home/Documents/CSV.csv" #{row[5]}/filters`.to_s
+		 interval = `curl –form "file=@/home/Documents/CSV.csv" #{row[5]}/intervals`.to_s
+		 	
+		
+
+		p  row[1] + row[2] + row[3] 
+
+		if(sum == test[0][1] && filter == test[0][2] && interval == test[0][3] )
+
+		p 1
+
+		else 
+		
+		p 0
+
+		end 
+	end 
+end
