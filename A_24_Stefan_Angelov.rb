@@ -1,7 +1,7 @@
 require 'csv'
 file = File.new(ARGV[0])
 controllers = Array.new(4)
-controllers = ["sums","filters","intervals","lin_regressions"]
+controllers = ["/sums","/filters","/intervals","/lin_regressions"]
 csv = File.new(ARGV[1])
 csv_fixture = CSV.open(csv,'r') { |csv| csv.first}
 csv_path = File.absolute_path(csv)
@@ -12,23 +12,23 @@ CSV.foreach(file) do |row|
 		next
 	end
 	for i in 0...4
-		heroku_path = row[5] + controllers[i].to_s
+		heroku_path = row[5].chop + controllers[i].to_s
 		r1 = "curl -s -F \"file=@#{csv_path}\" " + heroku_path
 		r1 = `#{r1}`
 		case controllers[i]
-		when "sums"
+		when "/sums"
 			if r1 == csv_fixture[0].to_s
 				tasks_done += 1
 			end
-		when "filters"
+		when "/filters"
 			if r1 == csv_fixture[1].to_s
 				tasks_done += 1
 			end
-		when "intervals"
+		when "/intervals"
 			if r1 == csv_fixture[2].to_s
 				tasks_done += 1
 			end
-		when "lin_regressions"
+		when "/lin_regressions"
 			if r1 == csv_fixture[3].to_s
 				tasks_done += 1
 			end
