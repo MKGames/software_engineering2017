@@ -34,7 +34,7 @@ CSV.foreach(file) do |row|
 			end
 		end
 	end 
-	print row[1] + ',' + row[2] + ',' + row[3] + ' ' + row[4] + ','  
+	print row[1] + ',' + row[2] + ',' + row[3] + ',' + row[4] + ','  
 	if tasks_done == 4
 		puts '1'
 	else
