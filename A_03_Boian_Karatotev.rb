@@ -1,10 +1,37 @@
 require('csv')
 require('time')
 
-# this is in accordance to my file
-# NOTE change this -- put answers at the top?
-$correct_answers = ['5148.00', '2607.00', '1819.00', '-0.072535,55.143030']
+# REVIEW: too many comments and too messy code.
+# If code quality is graded, this fails
+
+if ARGV.size < 2
+  puts 'Usage: hw_checker [student_list] [input_file] [late]'
+  puts '  late option fails students who submitted late'
+end
+
 $TIMEOUT = 30
+
+# get headers
+csv_file = CSV.open(ARGV[1])
+$correct_answers = csv_file.shift
+
+# make a new file with stripped headers. If i were to use a ruby library
+# instead of the command line cURL, this would  not be necessary
+headerless_input = []
+csv_file.each { |row| headerless_input << row}
+
+# save into a tmp file
+# NOTE: put in /tmp?
+CSV.open("input.tmp", "w") do |csv|
+  headerless_input.each do |row|
+    csv << row
+  end
+end
+
+csv_file.close
+
+# p $correct_answers
+# ['5148.00', '2607.00', '1819.00', '-0.072535,55.143030']
 # $all_answers = []
 
 def get_time(time_str)
@@ -52,11 +79,11 @@ class Student
 
     answers = []
     @@paths.each do |path|
-      result = `curl -s -F "file=@#{ARGV[1]}" #{@url}#{path} -m #{$TIMEOUT}`
+      result = `curl -s -F "file=@./input.tmp" #{@url}#{path} -m #{$TIMEOUT}`
       answers << result
     end
     # $all_answers << answers
-    # print answers, $correct_answers
+    # p answers, $correct_answers
     if answers == $correct_answers then 'correct' else 'bad_answers' end
   end
 end
@@ -82,11 +109,14 @@ threads.each do |t|
   t.join
 end
 
-# print(answers)
-CSV.open("A_03_Boian_Karatotev_results.csv", "wb") do |csv|
+# i'm not sure whether it should be on screen on in a file, so here's both
+csv_string = CSV.generate do |csv|
   answers.each do |user, score|
     if !user[0].blank?
       csv << user.push(if score == 'correct' then 1 else 0 end)
     end
   end
 end
+print(csv_string)
+
+File.open("A_03_Boian_Karatotev_results.csv", "w") { |csv| csv << csv_string }
