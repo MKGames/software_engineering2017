@@ -2,7 +2,8 @@ require 'csv'
 
 
 file = ARGV[0]
-file_test = ARGV[1]
+fixture=CSV.read(ARGV[1])
+file_test = "B_21_Roberta_Netzova.csv"
 open("./B_16_Maria_Stoyanova_results.csv", 'w') { |f| 
 CSV.foreach(file, :headers => true) do |row|
 	
@@ -19,17 +20,19 @@ CSV.foreach(file, :headers => true) do |row|
 			interval = `curl --form 'file=@./#{file_test}' #{row[5]}/intervals -m 10 2>/dev/null` 
 			lin_regression = `curl --form 'file=@./#{file_test}' #{row[5]}/lin_regressions -m 10 2>/dev/null` 
 		end
-		if row[1]=~/[BbБб1]/ 
+		if row[1]=~/[BbБб]/ 
 			a = "11Б"
 		end
-		if row[1]=~/[АаAa1]/ 
+		if row[1]=~/[АаAa]/ 
    			a = "11А"
 		end
-		if sum == "126.00" && filter == "40.00" && interval == "118.00" && lin_regression == "0.014006,3.347899" 
+		if sum ==fixture[0][0]  && filter == fixture[0][1] && interval == fixture[0][2] && lin_regression == fixture[0][3] + "," + fixture[0][4] 
 			
 			f.puts "#{a},№#{row[2]},#{row[3]},#{row[4]},1"
+			p "#{a},№#{row[2]},#{row[3]},#{row[4]},1"
 		else  
 			f.puts "#{a},№#{row[2]},#{row[3]},#{row[4]},0"
+			p "#{a},№#{row[2]},#{row[3]},#{row[4]},0"
 			
 		end
 	end
