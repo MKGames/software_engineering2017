@@ -90,15 +90,12 @@ CSV.foreach(students_file, headers: true, skip_blanks: true) do |row|
     if current_row == file_length
       students.sort_by! { |s| [s.class.to_s, s.number.to_i] }
 
-      students.each do |s|
-        s.print
-      end
-
       open(results_file, 'w') { |file|
         file.puts "Class,Number,First name,Last name,Result"
 
         students.each do |s|
           file.puts "#{s.class},#{s.number},#{s.fname},#{s.lname},#{s.result}"
+          s.print
         end
       }
 
