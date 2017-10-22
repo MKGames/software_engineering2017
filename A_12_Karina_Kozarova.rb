@@ -47,7 +47,6 @@ CSV.foreach(input_csv_file_with_links) do |row|
 	r2 = `curl -s -F \"file=@./A_12_fixture_without_first_line.csv\" #{current_url}/filters`
 	r3 = `curl -s -F \"file=@./A_12_fixture_without_first_line.csv\" #{current_url}/intervals`
    	r4 = `curl -s -F \"file=@./A_12_fixture_without_first_line.csv\" #{current_url}/lin_regressions`  
-
 	if r1.to_s == result_curl_1.to_s && r2.to_s == result_curl_2.to_s && r3.to_s == result_curl_3.to_s && r4.to_s == result_curl_4.to_s
 		result = 1
 	else 
