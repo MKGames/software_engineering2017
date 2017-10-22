@@ -32,5 +32,5 @@ require 'csv'
 			test = 0;
 	end
 
-	puts "#{row[3]}, #{row[4]}, #{test}\n"
+	puts "#{row[1]}, #{row[2]}, #{row[3]}, #{row[4]}, #{test}\n"
 end
