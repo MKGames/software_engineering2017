@@ -44,7 +44,7 @@ arr_of_arrs.each do |person|
 		elsif(klas == "б" or klas == "Б"  or klas == "B" or klas == "b")
 			s += "B"
 		end
-		s = s + " - " + person[2].to_s
+		s = s + " " + person[2].to_s
 		classNum.push(s)
 	end
 end
