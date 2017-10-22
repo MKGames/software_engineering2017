@@ -5,7 +5,9 @@ fxt = CSV.read(ARGV[1])
 
 doc.drop(1).each do |row|
 	Thread.new do
-		if(row[1] != "" && row[1] != nil && row[2] != "" && row[2] != nil && row[3] != "" && row[3] != nil && row[4] != "" && row[4] != nil && row[5] != "" && row[5] != nil && row[6] != "" && row[6] != nil)
+		if(row[1] != "" && row[1] != nil && row[2] != "" && row[2] != nil && 
+				row[3] != "" && row[3] != nil && row[4] != "" && row[4] != nil && 
+				row[5] != "" && row[5] != nil && row[6] != "" && row[6] != nil)
 			grade = row[1]
 			number = row[2]			
 			firstName = row[3]
