@@ -12,13 +12,30 @@ result_curl_4 = 0
 
 count = 0
 
-file = open("A_12_fixture_without_first_line.csv","a+")
+file = open("./A_12_fixture_without_first_line_1.csv", "w")
+# copy to string
+file.close
+
+file = open("A_12_fixture_without_first_line_1.csv","a+")
 
 # writes csv into new file without FL -> A_12_fixture_without_first_line.csv
 File.readlines(fixture_csv).drop(1).each do |line| 
   file.write(line)
 end 
+file.close
 
+file = open("./A_12_fixture_without_first_line_1.csv", "rb")
+# copy to string
+info = file.read
+file.close
+
+
+file = open("./A_12_work.csv", "w")
+file.write(info)
+file.close 
+
+file = open("./A_12_work.csv", "r")
+contents = file.read
 
 CSV.foreach(fixture_csv) do |row| 
 	count += 1
@@ -43,10 +60,10 @@ count = 0
 CSV.foreach(input_csv_file_with_links) do |row| 
 	result = 0
 	current_url = row[5]
-	r1 = `curl -s -F \"file=@./A_12_fixture_without_first_line.csv\" #{current_url}/sums`
-	r2 = `curl -s -F \"file=@./A_12_fixture_without_first_line.csv\" #{current_url}/filters`
-	r3 = `curl -s -F \"file=@./A_12_fixture_without_first_line.csv\" #{current_url}/intervals`
-   	r4 = `curl -s -F \"file=@./A_12_fixture_without_first_line.csv\" #{current_url}/lin_regressions`  
+	r1 = `curl -s -F \"file=@./A_12_work.csv\" #{current_url}/sums`
+	r2 = `curl -s -F \"file=@./A_12_work.csv\" #{current_url}/filters`
+	r3 = `curl -s -F \"file=@./A_12_work.csv\" #{current_url}/intervals`
+   	r4 = `curl -s -F \"file=@./A_12_work.csv\" #{current_url}/lin_regressions`  
 	if r1.to_s == result_curl_1.to_s && r2.to_s == result_curl_2.to_s && r3.to_s == result_curl_3.to_s && r4.to_s == result_curl_4.to_s
 		result = 1
 	else 
