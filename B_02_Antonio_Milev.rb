@@ -2,9 +2,10 @@ require "csv"
 require "date"
 
 arr = CSV.read(ARGV[0])
+
 len = arr.drop(1).length
 counter = 0
-results = []
+#results = []
 #deadline = Date.parse('2017-10-10')
 
 arr.drop(1).each do |n|
@@ -19,19 +20,21 @@ arr.drop(1).each do |n|
 		
 
 			if(sum == "126.00" && filter == "40.00" && interval == "118.00" && lin_regression == "0.014006,3.347899")
-				results.push("#{n[1]},#{n[2]},#{n[3]},#{n[4]},1")
+				#results.push("#{n[1]},#{n[2]},#{n[3]},#{n[4]},1")
+				puts "#{n[1]},#{n[2]},#{n[3]},#{n[4]},1"
 			else
-				results.push("#{n[1]},#{n[2]},#{n[3]},#{n[4]},0")
+				#results.push("#{n[1]},#{n[2]},#{n[3]},#{n[4]},0")
+				puts "#{n[1]},#{n[2]},#{n[3]},#{n[4]},0"
 			end
 
 			counter += 1
 
 			if counter == len
-				open("B_02_Antonio_Milev_results.csv", "w") { |f|
-					results.each do |r|
-						f.puts("#{r}")
-					end
-				}
+				#open("B_02_Antonio_Milev_results.csv", "w") { |f|
+				#	results.each do |r|
+				#		f.puts("#{r}")
+				#	end
+				#}
 				exit
 			end
 		else
