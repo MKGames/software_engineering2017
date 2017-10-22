@@ -1,24 +1,22 @@
 require 'csv'
 
-hr = 5
-cr = 1
-nr = 2
+file = ARGV[0]
 
-arr = CSV.read(ARGV[0])
+CSV.foreach(file, :headers => true) do |row|
 
-arr.each do |n|
+	sum = `curl --form "file=@./B_21_Roberta_Netzova.csv" #{row[5]}/sums`
+	filter = `curl --form "file=@./B_21_Roberta_Netzova.csv" #{row[5]}/filters`
+	interval = `curl --form "file=@./B_21_Roberta_Netzova.csv" #{row[5]}/intervals`
+	lin_regression = `curl --form "file=@./B_21_Roberta_Netzova.csv" #{row[5]}/lin_regressions`
 
-	sum = `curl --form "file=@/home/simo/Desktop/simo.csv" #{n[hr]}/sums`.to_s
-	filter = `curl --form "file=@/home/simo/Desktop/simo.csv" #{n[hr]}/filters`.to_s
-	interval = `curl --form "file=@/home/simo/Desktop/simo.csv" #{n[hr]}/intervals`.to_s
-	lin_regression = `curl --form "file=@/home/simo/Desktop/simo.csv" #{n[hr]}/lin_regressions`.to_s
-
-	if(n[1] != "" && n[2] != "" && n[3] != "" && n[4] != "" && n[5] != "" && n[6] != "")
-		if(sum == "137.00" && filter == "14.00" && interval == "137.00" && lin_regression == "-0.024064,4.560606")
-
-			p "#{n[cr]} #{n[nr]} #{n[3]} #{n[4]} 1"
-		else
-			p "#{n[cr]} #{n[nr]} #{n[3]} #{n[4]} 0"
-		end
+	if row[0] != "" && row[1] != "" && row[2] != "" && row[3] != "" && row[4] != "" && row[5] != "" && row[6] != "" 
+	if sum == "126.00" && filter == "40.00" && interval == "118.00" && lin_regression == "0.014006,3.347899" 
+			
+		puts "#{a},№#{row[2]},#{row[3]},#{row[4]},1"
+	else  
+		puts "#{a},№#{row[2]},#{row[3]},#{row[4]},0"
+			
 	end
+  end
+
 end
