@@ -1,20 +1,19 @@
 require 'csv'
 
-SUMS_ANSWER = "903.0"
-FILTERS_ANSWER = "425.0"
-INTERVALS_ANSWER = "825.0"
-LINREGRESSIONS_ANSWER = "1.0, 0.0"
-
-apps = []
-classNum = []
-grades = []
+apps = Array.new
+classNum = Array.new
+grades = Array.new
 csv_file = ARGV[0]
-final = Hash.new
+fixture = ARGV[1]
 
 arr_of_arrs = CSV.read(csv_file)
 
+answersF = Array.new
+ans_file = CSV.read(fixture)
+answersF = ans_file[0]
+
 arr_of_arrs.each do |person|
-	if(person[5] == nil || person[6] == nil || person[0][0...2] > "10")
+	if(person[5] == nil || person[6] == nil)
 		person[5] = "FAIL"
 	elsif(person[1] == nil)
 		next
@@ -27,8 +26,9 @@ arr_of_arrs.each do |person|
 		elsif(klas == "б" or klas == "Б"  or klas == "B" or klas == "b")
 			s += "B"
 		end
-		s = s + " - " + person[2].to_s
-		classNum.push(s)
+		
+		s  = s +  ", " + person[2] + ", " + person[3] + " " + person[4]
+		classNum.push(s);
 	end
 end
 
@@ -36,19 +36,25 @@ classNum.shift
 apps.shift
 
 apps.each do |app|
-	one = `curl --form "file=@./A_07_Vladimir_Vladinov.csv" #{app}/sums`.to_s
-	two = `curl --form "file=@./A_07_Vladimir_Vladinov.csv" #{app}/filters`.to_s
-	three = `curl --form "file=@./A_07_Vladimir_Vladinov.csv" #{app}/intervals`.to_s
-	four = `curl --form "file=@./A_07_Vladimir_Vladinov.csv" #{app}/lin_regressions`.to_s
-	if(one == SUMS_ANSWER and two == FILTERS_ANSWER and three == INTERVALS_ANSWER and four == LINREGRESSIONS_ANSWER and app != "FAIL")
+	if app == "FAIL"
+		grades.push(0)
+		next
+	end
+	oneF = `curl --form "file=@./#{fixture}" #{appp}/sums`.to_s
+	twoF = `curl --form "file=@./#{fixture}" #{appp}/filters`.to_s
+	threeF = `curl --form "file=@./#{fixture}" #{appp}/intervals`.to_s
+	fourF = `curl --form "file=@./#{fixture}" #{appp}/lin_regressions`.to_s
+
+	if(oneF == answersF[0].to_s and twoF == answersF[1].to_s and three == answersF[2].to_s and four == answersF[3].to_s and app != "FAIL")
 		grades.push(1)
+		puts 1
 	else
+		puts 0
 		grades.push(0)
 	end
+	puts answersF.to_s
 end
 
 grades.length.times do |i|
-	final[classNum[i]] = grades[i]
+	puts classNum[i].to_s + ", " + grades[i].to_s
 end
-
-p final
