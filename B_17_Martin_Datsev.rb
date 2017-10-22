@@ -1,3 +1,9 @@
+class String
+    def red;            "\e[31m#{self}\e[0m" end
+    def green;          "\e[32m#{self}\e[0m" end
+    def brown;          "\e[33m#{self}\e[0m" end 
+end
+
 require 'csv'
 require 'time'
 
@@ -75,12 +81,12 @@ students.each do |s|
         end
         s[:done] = true;
         s[:row] = sprintf "%s,%02d,%s,%s\n", s[:klas], s[:number], s[:name], result
-        puts s[:row]
+        print result == "1" ? s[:row].green : s[:row].red
         if students.all? {|t| t[:done] }
             open("./B_17_Martin_Datsev_results.csv", 'w') { |f|
                 students.sort_by! {|s| [s[:klas].to_s, s[:number].to_i] }
                 students.each do |o|
-                    f.puts o[:row]
+                    f.print o[:row]
                 end
             }
             exit
