@@ -7,6 +7,9 @@ result_curl_3 = "150.00"
 result_curl_4 = "60.00"
 
 count = 0
+filename = "A_12_filename.txt"
+file = open(filename, "w") 
+
 CSV.foreach(input_file) do |row| 
 	result = 0
 	current_url = row[5]
@@ -22,7 +25,10 @@ CSV.foreach(input_file) do |row|
 		result = 0
 	end
 	if count > 0 && !current_url.nil?
-			puts "#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{result}\n" 
+		file.write("#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{result}\n" )
 	end
 	count+=1
 end
+
+file.close
+

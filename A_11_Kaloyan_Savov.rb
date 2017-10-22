@@ -13,7 +13,7 @@ ar.each do |row|
         r3 = `curl --form "file=@./A_11_Kaloyan_Savov.csv" #{a}/intervals`
         r4 = `curl --form "file=@./A_11_Kaloyan_Savov.csv" #{a}/lin_regressions`.to_s
 
-        if r1 == 210 and r2 == 100 and r3 == 465 and r4 == "1.0 0.0"
+        if r1 == 465 and r2 == 225 and r3 == 465 and r4 == "1.000000,0.000000"
             grades.push("1")
         end
     else

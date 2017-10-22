@@ -22,7 +22,7 @@ CSV.foreach(file) do |row|
 			end
 		when "/intervals"
 			if r1 == "495.00"
-				tasks_done +=1
+				tasks_done += 1
 			end
 		when "/lin_regressions"
 			if r1 == "0.812500,3.125000"
@@ -30,10 +30,10 @@ CSV.foreach(file) do |row|
 			end
 		end
 	end 
-	print row[1] + ' ' + row[2] + ' ' + row[3] + ' ' + row[4]  
+	print row[1] + ',' + row[2] + ',' + row[3] + ' ' + row[4] + ','  
 	if tasks_done == 4
-		puts ' 1'
+		puts '1'
 	else
-		puts ' 0'
+		puts '0'
 	end
 end
