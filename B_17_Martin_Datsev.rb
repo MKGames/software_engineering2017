@@ -1,51 +1,25 @@
-class String
-    def red;            "\e[31m#{self}\e[0m" end
-    def green;          "\e[32m#{self}\e[0m" end
-    def brown;          "\e[33m#{self}\e[0m" end 
-end
 require 'csv'
 require 'time'
 
 Tests = [
     {
-        filePath: "./B_17_Martin_Datsev.csv",
+        filePath: ARGV[1],
         requests:[
             {
                 url: "/sums",
-                response: "11.00"
+                response: "126.00"
             },
             {
                 url: "/intervals",
-                response: "11.00"
+                response: "40.00"
             },
             {
                 url: "/filters",
-                response: "8.00"
+                response: "118.00"
             },
             {
                 url: "/lin_regressions",
-                response: "1.100000,0.000000"
-            }
-        ]
-    },
-    {
-        filePath: "./B_17_Martin_Datsev_2.csv",
-        requests:[
-            {
-                url: "/sums",
-                response: "-96932640.00"
-            },
-            {
-                url: "/intervals",
-                response: "1803740.00"
-            },
-            {
-                url: "/filters",
-                response: "3630.00"
-            },
-            {
-                url: "/lin_regressions",
-                response: "9424.559462,-1377957.847479"
+                response: "0.014006,3.347899"
             }
         ]
     }
@@ -65,14 +39,12 @@ csv.each do |row|
             late: late > 0 ? "(#{late} seconds late)" : "",
             klas: row[1] =~ /[bBбБ]/ ? "B" : ( row[1] =~ /[aAаА]/ ? "A" : "?"),    
             number: row[2],            
-            name: row[3].to_s + " " + row[4].to_s,
+            name: row[3].to_s + "," + row[4].to_s,
             hurl: row[5],
             done: false
         })
     end
 end
-
-#students.sort_by! {|s| [s[:klas].to_s, s[:number].to_i] }
 
 ReqMaxTime = 15;
 
@@ -87,19 +59,17 @@ students.each do |s|
                     result = "0";
                     break;
                 end
-                #s[:timeout] = res.start_with?("curl: (28)") ? "(request timeout)" : "asdfsadf";
             end
         end
         s[:done] = true;
-        row = sprintf "%s,%02d,%s,%s\n", s[:klas], s[:number], s[:name], result
-        if result == "0"
-            printf row.red
-        elsif s[:late] != ""
-            printf row.brown
-        else 
-            printf row.green
-        end
+        s[:row] = sprintf "%s,%02d,%s,%s\n", s[:klas], s[:number], s[:name], result
         if students.all? {|t| t[:done] }
+            open("./B_17_Martin_Datsev_results.csv", 'w') { |f|
+                students.sort_by! {|s| [s[:klas].to_s, s[:number].to_i] }
+                students.each do |o|
+                    f.puts o[:row]
+                end
+            }
             exit
         end
         printf students.select{|t| t[:done]}.size.to_s + "/" + students.size.to_s + "\r";
