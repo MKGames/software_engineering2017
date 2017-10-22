@@ -1,4 +1,5 @@
 require 'csv'
+# File.delete('./A_12_fixture_without_first_line.csv') if File.exist?('./A_12_fixture_without_first_line.csv')
 
 input_csv_file_with_links = ARGV[0]
 fixture_csv = ARGV[1]
