@@ -26,19 +26,22 @@ class String
   def reverse_color; "\e[7m#{self}\e[27m" end
 end
 
-TestCsvPath = "./B_26_Telerik_Arsov.csv"
+TestCsvPath = ARGV[1]
 Timeout = 10
 
 tests = [
-	["/sums", "11.00"], 
-	["/intervals", "11.00"], 
-	["/filters", "8.00"],
-	["/lin_regressions", "1.100000,0.000000"]
+	["/sums", "126.00"], 
+	["/intervals", "118.00"], 
+	["/filters", "40.00"],
+	["/lin_regressions", "0.014006,3.347899"]
 ]
 counter = 0
 
 csv = File.read(ARGV[0])
 csv_file = CSV.parse(csv, :headers => true)
+deadline = Date.parse('2017-10-10')
+dataForFile = []
+resultFilePath = './B_26_Telerik_Arsov_results.csv'
 csv_file.each do |row|
 	counter += 1
 	Thread.new do
@@ -46,21 +49,43 @@ csv_file.each do |row|
 		unless row[3].nil? && row[4].nil? && row[5].nil?
 			hUrl = row[5]
 			curl = "curl --form \"file=@#{TestCsvPath}\" #{hUrl}"
+			date = Date.parse(row[0].split(' ')[0]) 
+			if row[1] =~/[BbБб]/
+				row[1] = "11Б"
+			elsif row[1] =~/[aAаА]/
+				row[1] = "11A"
+			else
+				row[1] = "?"
+			end
 			tests.each do |test|
 				#p "#{curl}#{test[0]}"
 				response = `#{curl}#{test[0]} 2>/dev/null -m #{Timeout}`
 				#puts response
 				#todo 
-				if response != test[1]
+				if date > deadline
+					result = 0
+					break	
+				elsif response != test[1]
 					result = 0
 					break
 				end
 			end
+			dataForFile.push([row[1], row[2], row[3], row[4], result])
 			puts result == 1 ? "#{row[3]} #{row[4]}: #{result}".green : "#{row[3]} #{row[4]}: #{result}".red
 		end
 		counter -= 1
 		#puts counter
 		if counter == 0
+			dataForFile.sort_by! {|row| [row[0].to_s, row[1].to_i] }
+			#puts dataForFile
+			puts "writing to file"
+			open(resultFilePath, 'w') { |f|
+				f.puts "Клас,Номер,Име,Фамилия,Резултат"
+	  			dataForFile.each do |row|
+	  				puts "#{row[0]},#{row[1]},#{row[2]},#{row[3]},#{row[4]}"
+					f.puts "#{row[0]},#{row[1]},#{row[2]},#{row[3]},#{row[4]}"					
+				end
+			}
 			exit
 		end
 	end 
