@@ -42,6 +42,7 @@ CSV.foreach(input_csv_file_with_links) do |row|
 	else 
 		result = 0
 	end
+	
 	if count > 0 && !current_url.nil?
 		# file.write("#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{result}\n" )
 		puts "#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{result}\n"
