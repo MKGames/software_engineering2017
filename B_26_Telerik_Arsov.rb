@@ -26,22 +26,24 @@ class String
   def reverse_color; "\e[7m#{self}\e[27m" end
 end
 
-TestCsvPath = ARGV[1]
+TestCsvPath = "./B_21_Roberta_Netzova.csv"
 Timeout = 10
 
-tests = [
-	["/sums", "126.00"], 
-	["/intervals", "118.00"], 
-	["/filters", "40.00"],
-	["/lin_regressions", "0.014006,3.347899"]
-]
 counter = 0
 
 csv = File.read(ARGV[0])
+fixture = CSV.read(ARGV[1])
 csv_file = CSV.parse(csv, :headers => true)
 deadline = Date.parse('2017-10-10')
 dataForFile = []
 resultFilePath = './B_26_Telerik_Arsov_results.csv'
+
+tests = [
+	["/sums", "#{fixture[0][0]}"], 
+	["/intervals", "#{fixture[0][2]}"], 
+	["/filters", "#{fixture[0][1]}"],
+	["/lin_regressions", "#{fixture[0][3]},#{fixture[0][4]}"]
+]
 csv_file.each do |row|
 	counter += 1
 	Thread.new do
@@ -71,14 +73,13 @@ csv_file.each do |row|
 				end
 			end
 			dataForFile.push([row[1], row[2], row[3], row[4], result])
-			puts result == 1 ? "#{row[3]} #{row[4]}: #{result}".green : "#{row[3]} #{row[4]}: #{result}".red
+			#puts result == 1 ? "#{row[3]} #{row[4]}: #{result}".green : "#{row[3]} #{row[4]}: #{result}".red
 		end
 		counter -= 1
 		#puts counter
 		if counter == 0
 			dataForFile.sort_by! {|row| [row[0].to_s, row[1].to_i] }
 			#puts dataForFile
-			puts "writing to file"
 			open(resultFilePath, 'w') { |f|
 				f.puts "Клас,Номер,Име,Фамилия,Резултат"
 	  			dataForFile.each do |row|
