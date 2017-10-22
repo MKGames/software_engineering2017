@@ -6,28 +6,30 @@ require './test_case'
 require './strategies'
 
 if ARGV.size < 2
-    puts "Usage: #{$0} <data.csv> <fixture.csv> [options]"
+    puts "Usage: #{$0} <data.csv> <fixture.csv> [-p / --pretty]"
     exit
 end
 
 STUDENTS_DATA = ARGV[0]
 FIXTURE_DATA = ARGV[1]
+
+FIXTURES = CSV.open(FIXTURE_DATA, &:readline)
 TESTS = [
   {
     action: 'sums',
-    expected: '51068.00'
+    expected: FIXTURES[0]
   },
   {
     action: 'filters',
-    expected: '24758.00'
+    expected: FIXTURES[1]
   },
   {
     action: 'intervals',
-    expected: '1930.00'
+    expected: FIXTURES[2]
   },
   {
     action: 'lin_regressions',
-    expected: '-0.000996,51.566565'
+    expected: FIXTURES[3]
   }
 ]
 
