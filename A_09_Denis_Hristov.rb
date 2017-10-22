@@ -12,9 +12,12 @@ CSV.foreach(fixturesCSV, {:col_sep => ', '}) do |row|
 	answer[3] = row[3].to_s
 end
 
+skipHeader=0
+
 CSV.foreach(studentsCSV) do |row|
 	herokuLink = row[5].to_s
 	correct = 0
+	
 	
     sums = `curl --max-time 3 -s --form "file=@./A_09_Denis_Hristov.csv" #{herokuLink}/sums`.to_s
 	filters = `curl --max-time 3 -s --form "file=@./A_09_Denis_Hristov.csv" #{herokuLink}/filters`.to_s
@@ -25,5 +28,11 @@ CSV.foreach(studentsCSV) do |row|
 		correct = 1
 	end
 	
-	puts "#{row[1]}, #{row[2]}, #{row[3]}, #{row[4]}, #{correct}"
+	if skipHeader > 0
+		puts "#{row[1]}, #{row[2]}, #{row[3]}, #{row[4]}, #{correct}"
+	end
+	
+	skipHeader = 1
+	#i know i suck
+	
 end
