@@ -1,19 +1,29 @@
 require 'csv'
 file = ARGV[0]
+chek_file = ARGV[1]
+counter=0
 CSV.foreach(file,:headers => true) do |row|
 	url=row[5]
-	p url
 	ime=row[3]
 	familiq=row[4]
-	sums = `curl -F "file=@./B_27_Todor_Dimitrov.csv" #{url}/sums 2>/dev/null -m 5` == "551.00"
-	filters = `curl -F "file=@./B_27_Todor_Dimitrov.csv" #{url}/filters 2>/dev/null -m 5` == "2.00"
-	lin_regressions = `curl -F "file=@./B_27_Todor_Dimitrov.csv" #{url}/lin_regressions 2>/dev/null -m 5` == "2.301401,-25.682353"
-	intervals = `curl -F "file=@./B_27_Todor_Dimitrov.csv" #{url}/intervals 2>/dev/null -m 5` == "529.00"
-	if row[0] != "" && row[1] != "" && row[2] != "" && row[3] != "" && row[4] != "" && row[5] != "" && row[6] != "" 
-	if sums && filters && lin_regressions && intervals
-               	puts "#{ime} #{familiq} : 1"
-        else 
-        	puts "#{ime} #{familiq} : 0"
-	end
+	counter+=1
+	Thread.new do
+		sums = `curl -F "file=@./#{chek_file}" #{url}/sums 2>/dev/null -m 5` == "126.00"
+		filters = `curl -F "file=@./#{chek_file}" #{url}/filters 2>/dev/null -m 5` == "40.00"
+		lin_regressions = `curl -F "file=@./#{chek_file}" #{url}/lin_regressions 2>/dev/null -m 5` == "0.014006,3.347899"
+		intervals = `curl -F "file=@./#{chek_file}" #{url}/intervals 2>/dev/null -m 5` == "118.00"
+		if row[0] != "" && row[1] != "" && row[2] != "" && row[3] != "" && row[4] != "" && row[5] != "" && row[6] != "" 
+			if sums && filters && lin_regressions && intervals
+	        	       	puts "#{1},#{2},#{ime},#{familiq} : 1"
+	        	else 
+	        		puts "#{1},#{2},#{ime},#{familiq} : 0"
+			end
+			
+		end
+		counter-=1
+		if counter ==0
+			exit
+		end
 	end
 end
+sleep
