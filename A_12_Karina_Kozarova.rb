@@ -1,5 +1,6 @@
 require 'csv'
-input_file = ARGV[0]
+input_csv_file_with_links = ARGV[0]
+# fixture_csv = ARGV[1]
 
 result_curl_1 = "90.00"
 result_curl_2 = "0.003953,1.909091"
@@ -7,10 +8,10 @@ result_curl_3 = "150.00"
 result_curl_4 = "60.00"
 
 count = 0
-filename = "A_12_filename.txt"
-file = open(filename, "w") 
+# filename = "A_12_filename.txt"
+# file = open(filename, "w") 
 
-CSV.foreach(input_file) do |row| 
+CSV.foreach(input_csv_file_with_links) do |row| 
 	result = 0
 	current_url = row[5]
 
@@ -25,10 +26,11 @@ CSV.foreach(input_file) do |row|
 		result = 0
 	end
 	if count > 0 && !current_url.nil?
-		file.write("#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{result}\n" )
+		# file.write("#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{result}\n" )
+		puts "#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{result}\n"
 	end
 	count+=1
 end
 
-file.close
+#file.close
 
