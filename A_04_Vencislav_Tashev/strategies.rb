@@ -26,25 +26,44 @@ class BaseStrategy
 end
 
 class CSVStrategy < BaseStrategy
+  def print_status(ready, all)
+    print "#{'x' * ready}".light_blue
+    print '-' * (all - ready)
+    print " #{ready}/#{all}".light_blue
+    print "\r"
+  end
+
+  def get_results_as_csv
+    results = []
+
+    @students.each.with_index do |student, index|
+      if student.on_time?
+        @tests.each do |test|
+          test.run student.url_string
+        end
+
+        grade = self.get_grade
+      else
+        grade = "0 (Delayed with #{student.delay} seconds)"
+      end
+
+      results << [student.clazz, student.number, student.full_name, grade]
+      self.print_status index + 1, @students.size
+    end
+
+    results
+  end
+
   def represent_results
     puts '... Calculating results ...'.yellow
+    results = self.get_results_as_csv
 
     output_file = Constants::OUTPUT_FILE
     CSV.open(output_file, 'wb') do |csv|
       csv << ['Клас', 'Номер', 'Име', 'Резултат']
 
-      @students.each do |student|
-        if student.on_time?
-          @tests.each do |test|
-            test.run student.url_string
-          end
-
-          grade = self.get_grade
-        else
-          grade = "0 (Delayed with #{student.delay} seconds)"
-        end
-
-        csv << [student.clazz, student.number, student.full_name, grade]
+      results.each do |result_list|
+        csv << result_list
       end
     end
 
