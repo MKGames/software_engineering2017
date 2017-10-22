@@ -14,7 +14,7 @@ CSV.foreach(file) do |row|
 	r3 = `curl -s -F \"file=@.#{csv_path}\" #{heroku_url}/intervals`
 	r4 = `curl -s -F \"file=@.#{csv_path}\" #{heroku_url}/lin_regressions`
 
-	if r1 == fixture[0].to_s  && r2== fixture[1].to_s && r3 == fixture[2].to_s && r4 == fixture[3].to_s
+	if r1 == fixture[0].to_s  && r2 == fixture[1].to_s && r3 == fixture[2].to_s && r4 == fixture[3].to_s
 		result = 1
 	else 
 		result = 0
