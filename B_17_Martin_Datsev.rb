@@ -1,25 +1,37 @@
 require 'csv'
 require 'time'
 
+TempFilePath = "./temp.csv";
+
+testfile = CSV.parse(File.read(ARGV[1]))
+
+open(TempFilePath, 'w') { |f|
+    testfile.drop(1).each do |row|
+        f.puts row.join(",")
+    end
+}
+
+fixtures_header = testfile[0]
+
 Tests = [
     {
-        filePath: ARGV[1],
+        filePath: TempFilePath,
         requests:[
             {
                 url: "/sums",
-                response: "126.00"
-            },
-            {
-                url: "/intervals",
-                response: "118.00"
+                response: fixtures_header[0]
             },
             {
                 url: "/filters",
-                response: "40.00"
+                response: fixtures_header[1]
+            },
+            {
+                url: "/intervals",
+                response: fixtures_header[2]
             },
             {
                 url: "/lin_regressions",
-                response: "0.014006,3.347899"
+                response: fixtures_header[3]
             }
         ]
     }
@@ -55,6 +67,7 @@ students.each do |s|
         Tests.each do |test| 
             test[:requests].each do |req|
                 res = `curl --form \"file=@#{test[:filePath]}\" #{s[:hurl]}#{req[:url]} 2>/dev/null -m #{ReqMaxTime}`;
+
                 if(res != req[:response])
                     result = "0";
                     break;
