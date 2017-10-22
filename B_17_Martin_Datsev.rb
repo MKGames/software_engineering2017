@@ -1,25 +1,43 @@
+class String
+    def red;            "\e[31m#{self}\e[0m" end
+    def green;          "\e[32m#{self}\e[0m" end
+    def brown;          "\e[33m#{self}\e[0m" end 
+end
+
 require 'csv'
 require 'time'
 
+TempFilePath = "./temp.csv";
+
+testfile = CSV.parse(File.read(ARGV[1]))
+
+open(TempFilePath, 'w') { |f|
+    testfile.drop(1).each do |row|
+        f.puts row.join(",")
+    end
+}
+
+fixtures_header = testfile[0]
+
 Tests = [
     {
-        filePath: ARGV[1],
+        filePath: TempFilePath,
         requests:[
             {
                 url: "/sums",
-                response: "126.00"
-            },
-            {
-                url: "/intervals",
-                response: "118.00"
+                response: fixtures_header[0]
             },
             {
                 url: "/filters",
-                response: "40.00"
+                response: fixtures_header[1]
+            },
+            {
+                url: "/intervals",
+                response: fixtures_header[2]
             },
             {
                 url: "/lin_regressions",
-                response: "0.014006,3.347899"
+                response: fixtures_header[3]
             }
         ]
     }
@@ -63,13 +81,15 @@ students.each do |s|
         end
         s[:done] = true;
         s[:row] = sprintf "%s,%02d,%s,%s\n", s[:klas], s[:number], s[:name], result
+        print result == "1" ? s[:row].green : s[:row].red
         if students.all? {|t| t[:done] }
             open("./B_17_Martin_Datsev_results.csv", 'w') { |f|
                 students.sort_by! {|s| [s[:klas].to_s, s[:number].to_i] }
                 students.each do |o|
-                    f.puts o[:row]
+                    f.print o[:row]
                 end
             }
+            File.delete(TempFilePath)
             exit
         end
         printf students.select{|t| t[:done]}.size.to_s + "/" + students.size.to_s + "\r";

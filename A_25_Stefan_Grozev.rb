@@ -1,6 +1,7 @@
 require 'csv'
 
 csv_file = ARGV[0]
+csv_second = ARGV[1]
 
 result = 1
 
