@@ -1,12 +1,32 @@
-require'csv'
+require 'csv'
+
 
 file = ARGV[0]
+content = File.read(ARGV[1])
+test = CSV.parse(content)
 
-CSV.foreach(file) do |row|
-	hurl = row[4]
+CSV.foreach(file,:headers => true) do |row|
+	
+		unless row[2].nil? && row[3].nil? && row[4].nil? 
+				
+		 herokuurl = row[5]
+		 
+	
+		 sum = `curl –form "file=@ /home/Desktop/Test.csv" #{herokuurl}/sums 2>/dev/null`.to_s
+		 filter = `curl –form "file=@/home/Desktop/Test.csv" #{herokuurl}/filters 2>/dev/null`.to_s
+		 interval = `curl –form "file=@/home/Desktop/Test.csv" #{herokuurl}/intervals 2>/dev/null`.to_s
+		 regresion = `curl –form "file=@/home/Desktop/Test.csv" #{herokuurl}/lin_regresions 2>/dev/null` .to_s 		
+		
 
-	p `curl -F "file=@B_08_Ivan_Draganov.csv" #{hurl}/sums` == "5" 
-	p `curl -F "file=@B_08_Ivan_Draganov.csv" #{hurl}/filters` == "0"
-	p `curl -F "file=@B_08_Ivan_Draganov.csv #{hurl}/intervals` == "0"		
-	p `curl -F "file=@B_08_Ivan_Draganov.csv" #{hurl}/lin_regressions` == "0"
-end 
+		p  row[1] + row[2] + row[3] + row[4]
+
+		if(sum == test[0][1] && filter == test[0][2] && interval == test[0][3] && regresion == test[0][4])
+
+		p 1
+
+		else p 0
+
+		end 
+
+	end 
+end
