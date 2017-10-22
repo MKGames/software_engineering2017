@@ -11,11 +11,11 @@ Tests = [
             },
             {
                 url: "/intervals",
-                response: "40.00"
+                response: "118.00"
             },
             {
                 url: "/filters",
-                response: "118.00"
+                response: "40.00"
             },
             {
                 url: "/lin_regressions",
@@ -54,7 +54,7 @@ students.each do |s|
         result = "1"
         Tests.each do |test| 
             test[:requests].each do |req|
-                res = `curl --form \"file=@#{test[:filePath]}\" #{s[:hurl]}#{req[:url]} 2>/dev/null -m #{ReqMaxTime}`;    
+                res = `curl --form \"file=@#{test[:filePath]}\" #{s[:hurl]}#{req[:url]} 2>/dev/null -m #{ReqMaxTime}`;
                 if(res != req[:response])
                     result = "0";
                     break;
