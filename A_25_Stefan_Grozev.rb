@@ -1,12 +1,12 @@
 require 'csv'
 
-csv_file = ARGV[0]
+csv_url = ARGV[0]
 csv_second = ARGV[1]
 
 result = 1
 
 
-CSV.foreach(csv_file) do |row|
+CSV.foreach(csv_url) do |row|
 	result = 0
 	
 	current_url = row[5]
@@ -21,7 +21,7 @@ CSV.foreach(csv_file) do |row|
 		result = 0
 	end
 
-	puts "#{row[1]} #{row[3]} #{row[4]} #{result}" 
+	puts "#{row[1]}, #{row[3]}, #{row[4]}, #{result}" 
 end
 
 #1) Output = A_##_F_R_result.csv
