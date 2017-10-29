@@ -1,0 +1,2 @@
+http://privatent.herokuapp.com/notes
+https://github.com/Sasho32/PrivateNote
