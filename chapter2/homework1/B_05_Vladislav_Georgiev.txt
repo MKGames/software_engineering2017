@@ -1,0 +1,2 @@
+https://privprint.herokuapp.com/
+https://github.com/VGeorgiev1/private-note
