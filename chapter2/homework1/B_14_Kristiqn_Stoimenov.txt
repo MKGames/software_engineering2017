@@ -1,2 +1,2 @@
-https://danoraboti2.herokuapp.com/notes
+https://danoraboti2.herokuapp.com/notes/new
 https://github.com/puka89/danoraboti2
