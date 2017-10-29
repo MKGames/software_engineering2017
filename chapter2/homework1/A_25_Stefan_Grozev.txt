@@ -1,1 +1,2 @@
-https://stefotopriv.herokuapp.com/ , https://github.com/StefchoG/Tech_priv
+https://stefotopriv.herokuapp.com/
+https://github.com/StefchoG/Tech_priv
