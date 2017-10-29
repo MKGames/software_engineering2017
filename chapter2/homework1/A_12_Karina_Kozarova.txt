@@ -1,2 +1,2 @@
-https://privnote.herokuapp.com
+https://privnote.herokuapp.com/messages
 https://github.com/karinakozarova/TP-Privnote
