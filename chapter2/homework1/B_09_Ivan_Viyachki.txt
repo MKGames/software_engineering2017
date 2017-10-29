@@ -1,0 +1,2 @@
+https://homeworkprivnote.herokuapp.com/posts
+https://github.com/ivanviyachki/Homework_Privnote
