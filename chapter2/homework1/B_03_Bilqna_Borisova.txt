@@ -1,0 +1,2 @@
+https://homework-tp.herokuapp.com/notes
+https://github.com/bibsis/HW2

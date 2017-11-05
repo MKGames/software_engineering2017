@@ -3,27 +3,24 @@ require 'csv'
 studentsCSV = ARGV[0]
 fixturesCSV = ARGV[1]
 
-answer = []
+curlQueryString = 'curl --max-time 3 -s --form "file=@./A_09_Denis_Hristov.csv"'
 
-CSV.foreach(fixturesCSV, {:col_sep => ', '}) do |row|
-	answer[0] = row[0].to_s
-	answer[1] = row[1].to_s
-	answer[2] = row[2].to_s
-	answer[3] = row[3].to_s
-end
+answer = CSV.read(fixturesCSV, :col_sep => ', ')
 
-CSV.foreach(studentsCSV) do |row|
-	herokuLink = row[5].to_s
+CSV.foreach(studentsCSV, :headers => true) do |row|
+	herokuLink = row[5]
 	correct = 0
 	
-    sums = `curl --max-time 3 -s --form "file=@./A_09_Denis_Hristov.csv" #{herokuLink}/sums`.to_s
-	filters = `curl --max-time 3 -s --form "file=@./A_09_Denis_Hristov.csv" #{herokuLink}/filters`.to_s
-	intervals = `curl --max-time 3 -s --form "file=@./A_09_Denis_Hristov.csv" #{herokuLink}/intervals`.to_s
-	lin_regressions = `curl --max-time 3 -s --form "file=@./A_09_Denis_Hristov.csv" #{herokuLink}/lin_regressions`.to_s
+    sums = `#{curlQueryString} #{herokuLink}/sums`
+	filters = `#{curlQueryString}  #{herokuLink}/filters`
+	intervals = `#{curlQueryString}  #{herokuLink}/intervals`
+	lin_regressions = `#{curlQueryString} #{herokuLink}/lin_regressions`
 		
-	if sums == answer[0] && filters== answer[1] && intervals == answer[2] && lin_regressions == answer[3]
+	if sums == answer[0][0] && filters== answer[0][1] && intervals == answer[0][2] && lin_regressions == answer[0][3]
 		correct = 1
 	end
 	
-	puts "#{row[1]}, #{row[2]}, #{row[3]}, #{row[4]}, #{correct}"
+	unless row[1].nil?
+		puts "#{row[1]}, #{row[2]}, #{row[3]}, #{row[4]}, #{correct}"
+	end
 end

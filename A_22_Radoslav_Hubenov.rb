@@ -2,31 +2,31 @@
 
     data = ARGV[0]
 
-    task01_answer = "67.00"
-    task02_answer = "32.00"
-    task03_answer = "67.00"
-    task04_answer = "1.25676,0.90541"
+    fixture_path = ARGV[1]
+
+    values = []
+    
+    CSV.foreach(fixture_path) do |row|
+        values = row
+    end
+
 
     result = 0
 
     CSV.foreach(data) do |row|
-
+        
         url = row[5]
 
-        task01 = `curl -F "csv_file = @./A_22_Radoslav_Hubenov.csv" #{url}/sums`.to_s
-        task02 = `curl -F "csv_file = @./A_22_Radoslav_Hubenov.csv" #{url}/filters`.to_s
-        task03 = `curl -F "csv_file = @./A_22_Radoslav_Hubenov.csv" #{url}/intervals`.to_s
-        task04 = `curl -F "csv_file = @./A_22_Radoslav_Hubenov.csv" #{url}/lin_regressions`.to_s
+        task01 = `curl -s -F "file=@./A_22_Radoslav_Hubenov.csv" #{url}/sums`
+        task02 = `curl -s -F "file=@./A_22_Radoslav_Hubenov.csv" #{url}/filters`
+        task03 = `curl -s -F "file=@./A_22_Radoslav_Hubenov.csv" #{url}/intervals`
+        task04 = `curl -s -F "file=@./A_22_Radoslav_Hubenov.csv" #{url}/lin_regressions`
 
-        if task01 == task01_answer || task02 == task02_answer || task03 == task03_answer || task04 == task04_answer
+        if task01 == values[0] && task02 == values[1] && task03 == values[2] && task04 == values[3]
             result = 1
         end
-
-            url_name = row[3]
-            url_second = row[4]
-            puts url_name
-            puts url_second
-            puts result
-
+        puts "#{row[1]},#{row[2]},#{row[3]},#{row[4]},#{result}"
+        result = 0
+        
     end
 

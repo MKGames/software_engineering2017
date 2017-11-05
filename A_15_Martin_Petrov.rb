@@ -1,55 +1,65 @@
 require 'csv'
 
-SUMS_ANSWER = '1830.00'
-FILTERS_ANSWER = '896.00'
-INTERVALS_ANSWER = '1365.00'
-LIN_REGRESSIONS_ANSWER = '1.000000,0.000000'
+#SUMS_ANSWER = "1697.00"
+#FILTERS_ANSWER = "1276.00"
+#INTERVALS_ANSWER = "831.00"
+#LINREGRESSIONS_ANSWER = "1.100577,1.138961"
 
-heroku = []
-class_num = []
+apps = []
+classNum = []
+grades = []
 csv_file = ARGV[0]
-grade = []
-finalche = Hash.new
+file = ARGV[1]
 
-arrays = CSV.read(csv_file)
+sums = 0
+filters = 0
+intervals = 0
+lin_regressions = 0
 
-arrays.each do |each|
-  if(each[0][0...2] > "10" || each[5] = nil || each[6] = nil)
-      each[5] = "POD SEKVA"
-
-  elsif(each[1] == nil)
-      next
-    else
-      heroku.push(each[5].to_s)
-      st = "11"
-      paralelka = each[1][-1]
-      if(paralelka == "B" or paralelka == "b" or paralelka == "б" or paralelka == "Б")
-          st += "B"
-      elsif(paralelka == "a" or paralelka == "A" or paralelka == "А" or paralelka == "а")
-      st += "A"
+check = true
+CSV.foreach(fixture) do |row|
+    if check == 0
+        sums = row[0].to_s
+        filters = row[1].to_s
+        intervals = row[2].to_s
+        lin_regressions = row[3].to_s
+        check = false
+        next
     end
-    st = st + " " + each[2].to_s
-    class_num.push(st)
-  end
 end
 
-class_num.shift
-heroku.shift
+arr_of_arrs = CSV.read(csv_file)
 
-heroku.each do |app|
-  curl_to_first = `curl --form "file=@./A_15_Martin_Petrov.csv" #{app}/sums`.to_s
-  curl_to_second = `curl --form "file=@./A_15_Martin_Petrov.csv" #{app}/filters`.to_s
-  curl_to_third = `curl --form "file=@./A_15_Martin_Petrov.csv" #{app}/intervals`.to_s
-  curl_to_fourth = `curl --form "file=@./A_15_Martin_Petrov.csv" #{app}/lin_regressions`.to_s
-
-  if(curl_to_first == SUMS_ANSWER and curl_to_second == FILTERS_ANSWER and curl_to_third == INTERVALS_ANSWER and curl_to_fourth == LIN_REGRESSIONS_ANSWER and heroku != "POD SEKVA")
-    grade.push(1)
-  else
-    grade.push(0)
-  end
+arr_of_arrs.each do |person|
+	if(person[5] == nil || person[6] == nil || person[0][0...2] > "10")
+		person[5] = "POD SEKVA"
+	elsif(person[1] == nil)
+		next
+	else
+		apps.push(person[5].to_s)
+		s = "11"
+		klas = person[1][-1]
+		if(klas == "a" or klas == "А"  or klas == "A" or klas == "a")
+			s += "A"
+		elsif(klas == "б" or klas == "Б"  or klas == "B" or klas == "b")
+			s += "B"
+		end
+		s = s + " " + person[2].to_s
+		classNum.push(s)
+	end
 end
-grade.length.times do |i|
-  finalche[class_num[i]] = grade[i]
-end
 
-p finalche
+classNum.shift
+apps.shift
+
+apps.each do |app|
+	one = `curl --form "file=@./A_15_Martin_Petrov.csv" #{app}/sums`.to_s
+	two = `curl --form "file=@./A_15_Martin_Petrov.csv" #{app}/filters`.to_s
+	three = `curl --form "file=@./A_15_Martin_Petrov.csv" #{app}/intervals`.to_s
+	four = `curl --form "file=@./A_15_Martin_Petrov.csv" #{app}/lin_regressions`.to_s
+	if(one == sums and two == filters and three == intervals and four == lin_regressions and app != "POD SEKVA")
+		grades.push(1)
+	else
+		grades.push(0)
+	end
+end

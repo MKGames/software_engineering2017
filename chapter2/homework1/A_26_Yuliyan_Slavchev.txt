@@ -1,0 +1,2 @@
+https://immense-waters-48497.herokuapp.com/articles
+https://github.com/juli00913/priv_text_app

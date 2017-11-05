@@ -1,0 +1,2 @@
+https://sdiprivmess.herokuapp.com/notes/new
+https://github.com/SimoDimitrov/privmesss
