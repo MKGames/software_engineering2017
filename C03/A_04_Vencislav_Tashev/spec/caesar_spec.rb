@@ -33,6 +33,10 @@ RSpec.describe Caesar do
 		it "keeps the same message on key zero" do
 			expect(caesar.decrypt('Untouched', 0)).to eq 'Untouched'
 		end
+
+		it "reverts first letter correctly" do
+			expect(caesar.decrypt('app', 1)).to eq 'zoo'
+		end
 	end
 end
 
