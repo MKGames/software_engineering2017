@@ -1,5 +1,5 @@
 class Caesar
   def crypt m, n
-    if n == 2 then "VWGU" else "TUES" end
+    m.chars.map {|ch| "#{(ch.ord + n).chr}"}.join
   end
 end
