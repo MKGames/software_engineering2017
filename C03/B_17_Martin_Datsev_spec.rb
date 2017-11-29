@@ -1,4 +1,4 @@
-class Cezar
+class Caesar
     def encrypt(str, shift)
         str.chars.map{|x| 
             code = x.ord + shift
@@ -23,8 +23,8 @@ class Cezar
     end
 end
 
-describe Cezar do
-    cz = Cezar.new 
+describe Caesar do
+    cz = Caesar.new 
     it "encrypt('abc', 1) should return 'bcd'" do
         result = cz.encrypt("abc", 1)
         expect(result).to eq "bcd"
@@ -56,5 +56,9 @@ describe Cezar do
     it "decrypt('Lorem ipsum dolor sit amet.1234', 20) should return 'Filyg cjmog xifil mcn ugyn.1234'" do
         result = cz.encrypt("Lorem ipsum dolor sit amet.1234", 20)        
         expect(result).to eq "Filyg cjmog xifil mcn ugyn.1234"
+    end
+    it "decrypt(encrypt('DxSGeKNSl1dA0wxPhju9', 3), 3) should be equal to 'DxSGeKNSl1dA0wxPhju9'" do
+        result = cz.decrypt(cz.encrypt("DxSGeKNSl1dA0wxPhju9", 3), 3)
+        expect(result).to eq           "DxSGeKNSl1dA0wxPhju9"
     end
 end
