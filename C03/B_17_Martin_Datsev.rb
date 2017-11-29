@@ -1,5 +1,5 @@
 class Cezar
-    def encode(str, shift)
+    def encrypt(str, shift)
         str.chars.map{|x| 
             code = x.ord + shift
             if(code > 'z'.ord)
@@ -18,43 +18,43 @@ class Cezar
             end
         }.join("")
     end
-    def decode(str, shift)
-        encode(str, -shift)
+    def decrypt(str, shift)
+        encrypt(str, -shift)
     end
 end
 
 describe Cezar do
     cz = Cezar.new 
-    it "encode('abc', 1) should return 'bcd'" do
-        result = cz.encode("abc", 1)
+    it "encrypt('abc', 1) should return 'bcd'" do
+        result = cz.encrypt("abc", 1)
         expect(result).to eq "bcd"
     end
-    it "decode('bcd', 1) should return 'abc'" do
-        result = cz.decode("bcd", 1)
+    it "decrypt('bcd', 1) should return 'abc'" do
+        result = cz.decrypt("bcd", 1)
         expect(result).to eq "abc"
     end
-    it "encode('zzz', 1) should return 'aaa'" do
-        result = cz.encode("zzz", 1)        
+    it "encrypt('zzz', 1) should return 'aaa'" do
+        result = cz.encrypt("zzz", 1)        
         expect(result).to eq "aaa"
     end
-    it "encode('ZZZ', 1) should return 'AAA'" do
-        result = cz.encode("ZZZ", 1)        
+    it "encrypt('ZZZ', 1) should return 'AAA'" do
+        result = cz.encrypt("ZZZ", 1)        
         expect(result).to eq "AAA"
     end
-    it "encode('ZzaB', 1) should return 'AabC'" do
-        result = cz.encode("ZzaB", 1)        
+    it "encrypt('ZzaB', 1) should return 'AabC'" do
+        result = cz.encrypt("ZzaB", 1)        
         expect(result).to eq "AabC"
     end
-    it "decode('AAA', 1) should return 'ZZZ'" do
-        result = cz.decode("AAA", 1)        
+    it "decrypt('AAA', 1) should return 'ZZZ'" do
+        result = cz.decrypt("AAA", 1)        
         expect(result).to eq "ZZZ"
     end
-    it "decode('aaa', 1) should return 'zzz'" do
-        result = cz.decode("aaa", 1)        
+    it "decrypt('aaa', 1) should return 'zzz'" do
+        result = cz.decrypt("aaa", 1)        
         expect(result).to eq "zzz"
     end
-    it "decode('Lorem ipsum dolor sit amet.1234', 20) should return 'Filyg cjmog xifil mcn ugyn.1234'" do
-        result = cz.encode("Lorem ipsum dolor sit amet.1234", 20)        
+    it "decrypt('Lorem ipsum dolor sit amet.1234', 20) should return 'Filyg cjmog xifil mcn ugyn.1234'" do
+        result = cz.encrypt("Lorem ipsum dolor sit amet.1234", 20)        
         expect(result).to eq "Filyg cjmog xifil mcn ugyn.1234"
     end
 end
