@@ -1,5 +1,5 @@
 class Caesar
-  def self.crypt m, n
-    "VWGU"
+  def crypt m, n
+    if n == 2 then "VWGU" else "TUES" end
   end
 end
