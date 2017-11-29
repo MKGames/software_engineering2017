@@ -2,6 +2,6 @@
 class Caeser 
 
 	def crypt(m, k)
-		p "VWGU"
+		"VWGU"
 	end
 end
