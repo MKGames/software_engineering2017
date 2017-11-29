@@ -1,4 +1,4 @@
-require_relative './caeser.rb'
+require_relative './ceaser.rb'
 
 describe Caeser do
 	it "returns" do 
