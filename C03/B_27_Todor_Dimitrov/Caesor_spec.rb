@@ -1,4 +1,4 @@
-require_relative './Caesor_spec.rb'
+require_relative './Caesor.rb'
 
 describe Caesor do
         it "Crypt a message" do
