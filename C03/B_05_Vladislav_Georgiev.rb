@@ -1,20 +1,23 @@
 class Caesar
 	def crypt(m,k)
 		m.chars.map{|x| 
-		chrCode = x.ord + k
-		if chrCode >  'z'.ord
-			chrCode -= 26;
-		elsif chrCode <'a'.ord && chrCode > 'Z'.ord && k >0
-			chrCode -= 26;
-		end
-		if chrCode < 'A'.ord 
-			chrCode += 26;
-		elsif chrCode < 'a'.ord && chrCode > 'Z'.ord && k <0
-			chrCode+=26
-		end 
-		chrCode.chr
+			chrCode = x.ord + k
+			if chrCode >  'z'.ord
+				chrCode -= 26;
+			elsif chrCode <'a'.ord && chrCode > 'Z'.ord && k >0
+				chrCode -= 26;
+			end
+			if chrCode < 'A'.ord 
+				chrCode += 26;
+			elsif chrCode < 'a'.ord && chrCode > 'Z'.ord && k <0
+				chrCode+=26
+			end 
+			chrCode.chr
 		}.join("")
 	end
+	def decrypt(m,k)
+		crypt(m,-k)
+	end 
 end
 
 describe Caesar do
@@ -33,5 +36,11 @@ describe Caesar do
 	end
 	it "crypt with aaa" do
 		expect(caesar.crypt("AaA", -1)).to eq "ZzZ"
+	end
+	it "decrypt with ZzZ" do
+		expect(caesar.decrypt("ZzZ", -1)).to eq "AaA"
+	end
+	it "decrypt with aaa" do
+		expect(caesar.decrypt("aaa", 1)).to eq "zzz"
 	end
 end
