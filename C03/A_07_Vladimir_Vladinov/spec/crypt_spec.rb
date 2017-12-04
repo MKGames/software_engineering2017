@@ -8,6 +8,6 @@ describe Caesar do
 		expect(Caesar.new.crypt("", 50)).to eq ""
 		expect(Caesar.new.crypt("xyz", -1)).to eq "wxy"
 		expect(Caesar.new.crypt("xyz", 2)).to eq "zab"
-		expect(Caesar.new.crypt("RUssian Standart", -26)).to eq "Russian Standart"
+		expect(Caesar.new.crypt("Russian Standart", -26)).to eq "Russian Standart"
 	end
 end
