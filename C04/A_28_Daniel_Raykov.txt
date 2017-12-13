@@ -1,8 +1,10 @@
-POST /new_key -> generates new n, e and d values, returns id
+POST /rsas -> id
+POST /rsas?n=1&e=2&d=3 -> initialize
+GET /rsas/:id -> n, e, d
+GET /rsas/:d?values=public -> n, e
+GET /rsas/:d?values=private -> d
+POST /rsas/:id/ecryption.messages?m=message -> id
+GET /rsas/:id/encrypted.messages/:id -> m
+POST /rsas/:id/decryption.messages?m=message_id -> id
 
-GET /n/:id -> returns n for the requested id
-GET /e/:id -> returns e for the requested id
-GET /d/:id -> returns d for the requested id
-
-POST /encrypt?m=message_to_encrypt -> encrypts the passed message
-POST /decrypt?m=message_to_decrypt -> decrypts the passed message
+note: get params in url, post params in body request
