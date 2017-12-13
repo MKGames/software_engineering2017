@@ -1,7 +1,6 @@
-POST /RSA/id?n= &e= &d=
-GET /RSA/id/new_key
-POST /RSA/id?message_to_encrypt=
-POST /RSA/id/encrypt?message_to_encrypt
-GET /RSA/id/encrypt
-GET RSA/id/decrypt
-DELETE /RSA/id
+POST /RSA/:id?n= &e= &d=
+PUT /RSA/:id/new_key
+POST /RSA/:id?message=
+POST /RSA/:id/encrypt?message
+GET RSA/:id/decrypt?message
+DELETE /RSA/:id
