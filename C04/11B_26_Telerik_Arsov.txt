@@ -1,0 +1,11 @@
+POST /RSA?n= &e= &d=	 		rsa#new
+GET /RSA	 		rsa#show all rsas
+GET /RSA/:id     		rsa#show Rsa at given id
+GET /RSA/:id/n   		rsa#show show n
+GET /RSA/:id/e   		rsa#show show e
+GET /RSA/:id/d 	 		rsa#show show d
+POST /RSA/:id/encrypt/?m= 	rsa#encrypt given message m ofa given rsa
+GET /RSA/:id/encrypt/:id2	rsa#encrypt returns id of message
+GET /RSA/:id/decrypt/?m= 	rsa#decrypt decrypts given message m of a given rsa
+GET /RSA/:id/edit 		rsa#edit 
+DELETE /RSA			rsa#delete
