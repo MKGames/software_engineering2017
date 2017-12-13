@@ -1,0 +1,13 @@
+URL: https://RSA.herokuapp.com/ ##  example url adress of app
+
+GET  'https://RSA.herokuapp.com/:id/n' ## gets n 
+GET  'https://RSA.herokuapp.com/:id/e' ## gets e
+GET  'https://RSA.herokuapp.com/:id/d' ## gets d
+GET  'https://RSA.herokuapp.com/rsa/new_key' ## gets new key => creates new n, e and d
+
+
+GET 'https://RSA.herokuapp.com/rsas/:id/values = privilage/' ## Type of vals 
+
+POST 'https://RSA.herokuapp.com/rsas/:id/encrypt_messages/?message = "thing"'   ##Crypts message 
+GET  'https://RSA.herokuapp.com/rsas/:id/encrypt_messages/:id' ##Gets the messages 
+
