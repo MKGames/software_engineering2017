@@ -1,10 +1,10 @@
 POST url/new_key 
 POST url/initialize 
 
-GET url/n:id=id_you_want
-GET url/e:id=id_you_want
-GET url/d:id=id_you_want
+GET url/n?id=id_you_want
+GET url/e?id=id_you_want
+GET url/d?id=id_you_want
 
-POST url/encrypt:encrypted_message=string_input
-POST url/decrypt:decrypted_message=string_input
+POST url/encrypt?encrypted_message=string_input
+POST url/decrypt?decrypted_message=string_input
 
