@@ -1,19 +1,17 @@
-POST /RSA?n= &e= &d=  #initialize
-POST /RSA/:id/encrypt?message= #encrypting message
-
-PUT /RSA/:id?n= &e= &d=   #changing values
-PUT /RSA/:id/new_key?n= &e= &d= #new keypair for RSA with index id
-
-GET /RSA  #returns all RSAs
-GET /RSA/:id  #retursn one RSA with the id
-GET /RSA/:id/n  #returns n
-GET /RSA/:id/e  #returns e
-GET /RSA/:id/d  #returns d
-GET /RSA/:id/decrypt?message= #decrypts a given message 
-GET /RSA/:id/decrypt/messages/:id= #decrypt the message with the given id
-GET /RSA/:id/encrypt/:id #returns the id of the encrypted message
+POST /rsas?n= &e= &d=  #initialize or new keys
+POST /rsas/:id/encrypted.messages?message= #encrypting message
+POST /rsas/:id/decrypt?message= #decrypts a given message 
+PUST /rsas/:id/decrypt/encrypted.messages/:id= #decrypt the message with the given id
 
 
-DELETE /RSA   #removing all RSAs
-DELETE /RSA/:id   #removing one RSA with the id
+GET /rsas/:id?values=   #returns n, e ,d if values == public it returns n and e if values == private it returns d if values == nill && all it returns n,e,d
+GET /rsas/:id/n  #returns n
+GET /rsas/:id/e  #returns e
+GET /rsas/:id/d  #returns d
+
+GET /rsas/:id/encrypted.messages/:id2 #returns the id of the encrypted message
+
+
+DELETE /rsas   #removing all RSAs
+DELETE /rsas/:id   #removing one RSA with the id
 
