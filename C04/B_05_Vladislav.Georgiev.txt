@@ -1,0 +1,17 @@
+POST '/rsa/new' -> RSA.new (the initializer will be replaced with new_key pairs and returns the id of the instance of the new rsa
+
+GET '/rsa/:id/n' -> RSA.n (returns the n parameter of the  rsa on id)
+
+GET '/rsa/:id/e' -> RSA.e (returns the e parameter of the  rsa on id)
+
+GET '/rsa/:id/d' -> RSA.d (returns the d parameter of the  rsa on id)
+
+POST '/rsa/:id/encrypt/?message' ->  recive a message  as param and crypts it and returns id to it
+
+GET '/rsa/:id/encrypt/:crypted_id' -> returns the crypted message on crypted_id on specific rsa (id)
+
+POST '/rsa/:id/decrypt/:crypted_id' ->  decrypt the  crypted message on crypted_id and returns id to the decrypted message
+
+GET '/rsa/:id/decrypt/:decrypted_id' -> returns the decrypted message on the decrypted_id
+
+DELETE /rsa/:id -> deletes the rsa on id
