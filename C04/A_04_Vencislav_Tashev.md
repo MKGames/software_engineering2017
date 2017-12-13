@@ -1,6 +1,7 @@
 # RSA API Routes
 
 Request: *POST* `/rsas/`
+
 Response: Creates a new RSA instance (should provide `n`, `e` and `d` keys)
 ```
 {
@@ -11,6 +12,7 @@ Response: Creates a new RSA instance (should provide `n`, `e` and `d` keys)
 ---
 
 Request: *POST* `/rsas/:id?values`
+
 Response: Returns a specific RSA instance based on a filter
 ```
 {
@@ -24,6 +26,7 @@ Response: Returns a specific RSA instance based on a filter
 ---
 
 Request: *GET* `/rsas/generate_keys/`
+
 Response: Generates a new pair of keys
 ```
 {
@@ -36,6 +39,7 @@ Response: Generates a new pair of keys
 ---
 
 Request: *GET* `/rsas/:rsaId/n/`
+
 Response: Returns the N part of a public key for a specific RSA
 ```
 {
@@ -46,6 +50,7 @@ Response: Returns the N part of a public key for a specific RSA
 ---
 
 Request: *GET* `/rsas/:rsaId/e/`
+
 Response: Returns the E part of the public key
 ```
 {
@@ -56,7 +61,8 @@ Response: Returns the E part of the public key
 ---
 
 Request: *GET* `/rsas/:rsaId/d/`
-Response: Returns the private key (maybe not fully correct)
+
+Response: Returns the private key
 ```
 {
   "d": <d_value>
@@ -66,6 +72,7 @@ Response: Returns the private key (maybe not fully correct)
 ---
 
 Request: *GET* `/rsas/:rsaId/encryptedMessages/`
+
 Response: Returns all encrypted messages
 ```
 {
@@ -100,6 +107,7 @@ Response: Returns the encrypted message representation
 ---
 
 Request: *GET* `/rsas/:rsaId/encryptedMessages/:messageId/`
+
 Response: Returns a concrete message with given id
 ```
 {
@@ -111,6 +119,7 @@ Response: Returns a concrete message with given id
 ---
 
 Request: *GET* `/rsas/:rsaId/decryptedMessages/`
+
 Response: Returns all decrypted messages
 ```
 {
@@ -145,6 +154,7 @@ Response: Returns the decrypted message representation
 ---
 
 Request: *GET* `/rsas/:rsaId/decryptedMessages/:messageId/`
+
 Response: Returns a concrete message with given id
 ```
 {
