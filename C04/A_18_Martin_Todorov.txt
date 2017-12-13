@@ -1,6 +1,6 @@
-POST /RSA/:id?n= &e= &d=
-PUT /RSA/:id/new_key
-POST /RSA/:id?message=
-POST /RSA/:id/encrypt?message
-GET RSA/:id/decrypt?message
-DELETE /RSA/:id
+POST /RSA/:id?n= &e= &d=          //enters the values of n, e, d
+PUT /RSA/:id/new_key          //generates new keys
+POST /RSA/:id?message=          //enters the message that will be encrypted
+POST /RSA/:id/encrypt?message         //encrypts the message
+GET RSA/:id/decrypt?message         //gets the decrypted message
+DELETE /RSA/:id         //deletes everything that belonds to the id
