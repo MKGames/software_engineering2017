@@ -1,0 +1,14 @@
+POST /rsas -> generates new key with random values
+
+GET /rsas/:id 
+	
+GET /rsas/:id/n 
+GET /rsas/:id/e
+GET /rsas/:id/d
+
+POST /rsas/:id/encrypt_msgs?msg= -> writing msg
+
+GET /rsas/:id/encrypt_msgs/:id2 -> get msg encrypted
+POST /rsas/:id/decrypt_msgs/:id2 ->post decrypted msg
+
+
