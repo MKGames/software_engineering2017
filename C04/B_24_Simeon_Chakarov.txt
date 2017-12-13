@@ -1,0 +1,17 @@
+creates new instance of class RSA with a key and new id in the DB which is the instance
+-> POST /rsa/instance 
+
+on created object gets generated n
+-> GET /rsa/id/n
+on created object gets generated e
+-> GET /rsa/id/e
+on created object gets generated d
+-> GET /rsa/id/d
+
+on created object generates new key with n, e, d
+-> GET /rsa/id/key
+
+on created object sends a message
+->POST /rsa/id/crypted_message
+on created object receives message
+->POST /rsa/id/decrypted_message
