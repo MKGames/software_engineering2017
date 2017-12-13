@@ -1,0 +1,7 @@
+POST url/new /w json -> initialize
+GET url/n/:id           -> n
+GET url/e/:id           -> e
+GET url/d/:id           -> d
+GET url/new_key /w json -> new_key
+POST url/encrypt/:id    -> encrypt
+POST url/decrypt/:id    -> decrypt
