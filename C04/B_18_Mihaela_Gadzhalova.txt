@@ -1,0 +1,9 @@
+URL: https://RSA.herokuapp.com/ ##  example url adress of app
+
+GET  'https://RSA.herokuapp.com/:id/n'
+GET  'https://RSA.herokuapp.com/:id/e' 
+GET  'https://RSA.herokuapp.com/:id/d'
+GET  'https://RSA.herokuapp.com/rsa/new_key'
+
+GET 'https://RSA.herokuapp.com/rsas/:id/values = privilage/'
+
