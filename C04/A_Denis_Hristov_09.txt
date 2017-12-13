@@ -1,0 +1,15 @@
+	
+POST 	/rsa/keys/initialize?n&e&d						initialize a new RSA
+GET 	/rsa/keys/:id									show current RSA keys
+DELETE	/rsa/:id/										delete a RSA and its items 
+
+GET  	/rsa/keys/:id/n 								get N key
+GET  	/rsa/keys/:id/e 								get E key
+GET  	/rsa/keys/:id/d									get D key
+GET  	/rsa/:id/new_key								set new keys
+
+POST 	/rsa/:id/encrypt?message						encrypt a message with current keys
+GET 	/rsa/:id/encrypt?message						get encrypted message
+
+POST 	/rsa/:id/decrypt?message						decrypt a message with current encrypted string
+GET 	/rsa/:id/encrypt?message						decrypt the encrypted message
