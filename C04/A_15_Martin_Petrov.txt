@@ -1,0 +1,9 @@
+POST /RSA/new?n=:n&e=:e&d=:d
+
+GET /RSA/:id/n    
+GET /RSA/:id/e      
+GET /RSA/:id/d 
+GET /RSA/new_key
+
+GET /RSA/encrypt/:id/:message
+GET /RSA/decrypt/:id/:message
