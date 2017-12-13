@@ -1,0 +1,9 @@
+POST /RSA?&n= &e= &d= -> new RSA
+GET /RSA/:id/n -> returns n
+GET /RSA/:id/e -> returns e
+GET /RSA/:id/d -> returns d
+POST /RSA/encrypt/?message = "some text" -> takes the text for encryption
+GET /RSA/encrypted_message -> returns the encrypted text
+POST /RSA/decrypt/?message = "decrypted text" -> takes the text for decryption
+GET /RSA/decrypted_message -> returns the decrypted text
+
