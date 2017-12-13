@@ -1,0 +1,19 @@
+POST /RSA?n= &e= &d=  #initialize
+POST /RSA/:id/encrypt?message= #encrypting message
+
+PUT /RSA/:id?n= &e= &d=   #changing values
+PUT /RSA/:id/new_key?n= &e= &d= #new keypair for RSA with index id
+
+GET /RSA  #returns all RSAs
+GET /RSA/:id  #retursn one RSA with the id
+GET /RSA/:id/n  #returns n
+GET /RSA/:id/e  #returns e
+GET /RSA/:id/d  #returns d
+GET /RSA/:id/decrypt?message= #decrypts a given message 
+GET /RSA/:id/decrypt/messages/:id= #decrypt the message with the given id
+GET /RSA/:id/encrypt/:id #returns the id of the encrypted message
+
+
+DELETE /RSA   #removing all RSAs
+DELETE /RSA/:id   #removing one RSA with the id
+
