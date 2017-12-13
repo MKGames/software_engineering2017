@@ -1,0 +1,19 @@
+GET 'https://mySweetRSA.herokuapp.com/rsa/n'
+
+
+POST /rsas
+GET 'https://mySweetRSA.herokuapp.com/rsa/d'
+GET 'https://mySweetRSA.herokuapp.com/rsa/e'
+#za kriptirane: POST /rsas/:id/encryption_messages/?message...blablabla... 
+#vrushta se ID i mu lafim GET /rsas/:id/idto-na-suobshtenieto, koeto e suzdadeno
+#stocks
+#waits
+#urlto predostavq resursa, posle-actiona, a parametrite - filtera
+
+
+ako iskame da suzdadem novo kriptirano message: POST /rsas/:id*id-to na kliucha koto she polzvame*/encrypt_messages/*sudurjanietokoetosikamedasekriptira*?message=blablabla
+
+
+
+
+
