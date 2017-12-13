@@ -1,0 +1,13 @@
+GET 'https://RSA-crypt.herokuapp.com/rsas/:id/n' -> rsa#show  n
+GET 'https://RSA-crypt.herokuapp.com/rsas/:id/e' -> rsa#show  e
+GET 'https://RSA-crypt.herokuapp.com/rsas/:id/d' -> rsa#show  d
+
+GET 'https://RSA-crypt.herokuapp.com/rsas/new_key'     -> rsa#create Creates new n, e, d
+POST 'https://RSA-crypt.herokuapp.com/rsas?n= &e= &d=' -> rsa#new Creates new unique rsa with id and n, e, d given as arguments
+GET 'https://RSA-crypt.herokuapp.com/rsas' 			-> Returns all created rsas
+GET 'https://RSA-crypt.herokuapp.com/rsas/:id?values'  -> returns n, e, d for this rsa (value = "privite/public/all")     
+
+POST 'https://RSA-crypt.herokuapp.com/rsas/:id/encrypts/?m="message"' -> rsa# Retursn unique id for the this encrypted message
+GET 'https://RSA-crypt.herokuapp.com/rsas/:id/encrypts/:id2'          -> Returns the encrypted message fot this id
+
+POST 'https://RSA-crypt.herokuapp.com/rsas/:id/decrypt?m="message"' ->
