@@ -1,0 +1,7 @@
+POST localhost:3000/rsa? - new_key
+GET localhost:3000/rsa?n=..&e=..&d=.. - initialize
+GET localhost:3000/rsa/:id/?values=private,public,all - n, e, d
+POST localhost:3000/rsa/:id/encrypt_messages/?message=... - encrypt
+	GET localhost:3000/rsa/:id/encrypt_messages/:id2
+POST localhost:3000/rsa/:id/decrypt_messages/?message=... - decrypt
+	GET localhost:3000/rsa/:id/decrypt_messages/:id2
