@@ -1,0 +1,8 @@
+POST /new_key -> generates new n, e and d values, returns id
+
+GET /n/:id -> returns n for the requested id
+GET /e/:id -> returns e for the requested id
+GET /d/:id -> returns d for the requested id
+
+POST /encrypt?m=message_to_encrypt -> encrypts the passed message
+POST /decrypt?m=message_to_decrypt -> decrypts the passed message
