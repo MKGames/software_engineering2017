@@ -1,0 +1,5 @@
+url: /RSA
+GET /RSA/new_key ->returns new key and DOESN'T store it!
+POST /RSA/encrypt/msg?= ->Encrypts message and stores and returns id
+GET /RSA/decrypt/id?= ->Returns decrypted message
+
