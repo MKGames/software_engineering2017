@@ -19,7 +19,7 @@ Response: Returns a specific RSA instance based on a filter
   "id": <rsa_id>,
   "n": <n_value>,
   "e": <e_value>,
-  "d": <d_vaue>
+  "d": <d_value>
 }
 ```
 
