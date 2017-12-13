@@ -1,7 +1,7 @@
 Method URL                               ctrlr action     comment
 GET    /rsas                             rsas#show        returns all RSA objects
 POST   /rsas?n&e&d                       rsas#create      create new RSA with n, e, d given as params (rsa.initialize)
-GET    /rsas/new_keys                    rsas#new_key     returns all new n, e, d (RSA.new_key)
+POST   /rsas                             rsas#create      if no params, create new RSA with generated keys  (rsa.initialize(RSA.new_keys))
 GET    /rsas/:rid/edit?n&e&d             rsas#edit        edit the rsa with id :rid with n, e, d given as params
 GET    /rsas/:rid                        rsas#show?values returns n, e or d of rsa with id :rid (rsa.n, rsa.e, rsa.d)
 
