@@ -1,0 +1,13 @@
+POST -> create
+GET -> read
+PUT -> update/replace
+DELETE -> delete
+
+POST /keys -> 
+POST /keys/id/n
+GET /keys/id/n
+
+PUT /encrypt
+PUT /decrypt
+GET /decrypt
+DELETE /decrypt
