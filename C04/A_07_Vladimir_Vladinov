@@ -1,0 +1,10 @@
+GET /rsa/:id/n => rsa#n
+GET /rsa/:id/e => rsa#e
+GET /rsa/:id/d => rsa#d
+
+POST /rsa/new/?n=:n&e=:e&d=:d => rsa#initialize
+
+GET /rsa/get_key => rsa#new_key
+
+GET /rsa/encrypt/:id/:msg => rsa#encrypt
+GET /rsa/decrypt/:id/:msg => rsa#decrypt
