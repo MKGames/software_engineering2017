@@ -1,0 +1,8 @@
+POST "/rsas"							-- generate key for id1(return it)
+GET "/rsas/:id1"        					-- return key(n, e, d) for id1
+	- GET "/rsas/:id/? values = private"			-- return 'd'
+	- GET "/rsas/:id/? values = public" 			-- return 'n', 'e'
+	- GET "/rsas/:id/? values = all" 			-- return 'n', 'e', 'd'
+POST "/rsas/:id/en_messages/? messages = "hello""  		-- encript 'message' and return id2
+GET "/rsas/:id/en_messages/:id2" 				-- return crypted message
+POST "/rsas/:id/decrypts_messages/? message = "dasds""
