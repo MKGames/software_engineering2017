@@ -10,6 +10,19 @@ Response: Creates a new RSA instance (should provide `n`, `e` and `d` keys)
 
 ---
 
+Request: *POST* `/rsas/:id?values`
+Response: Returns a specific RSA instance based on a filter
+```
+{
+  "id": <rsa_id>,
+  "n": <n_value>,
+  "e": <e_value>,
+  "d": <d_vaue>
+}
+```
+
+---
+
 Request: *GET* `/rsas/generate_keys/`
 Response: Generates a new pair of keys
 ```
