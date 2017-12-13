@@ -1,0 +1,18 @@
+POST /rsa/newkey
+GET/rsa/newkey/id?values = all
+
+POST /rsa/newkey/id/encrypt_messages/?message = something
+GET /rsa/newkey/id/encrypt_messages/id2/
+
+POST /rsa/newkey/id/decrypt_messages/? message = id2
+GET /rsa/newkey/id/decrypt_messages/id3
+
+POST /rsa/n?value = something
+GET /rsa/n/id3
+
+POST /rsa/e?value = something
+GET /rsa/e/id4
+
+POST /rsa/d?value = something
+GET /rsa/d/id5
+
