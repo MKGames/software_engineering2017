@@ -1,0 +1,6 @@
+POST /rsas/:id/enc_messages/? message = "tues"
+GET /rsas/:id/enc_messages/:id2
+GET /rsas/:id?values=all
+POST /rsas/:id/dec_messages/? message = "tues"
+GET /rsas/:id/dec_messages/:id2
+
