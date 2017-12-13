@@ -2,9 +2,9 @@ require "Caesar"
 
 describe Caesar do
   describe ".crypt" do
-    context "given the string TUES" do
-      it "returns VWGU" do
-        expect(Caesar.crypt("TUES", 2)).to eql("VWGU")
+    context "given the string ABC" do
+      it "returns EFG" do
+        expect(Caesar.new.crypt("ABC", 4)).to eql"EFG"
       end
     end
   end
