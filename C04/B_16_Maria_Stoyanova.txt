@@ -1,0 +1,9 @@
+GET /rsa/id/key 
+GET /rsa/id/n 
+GET /rsa/id/e 
+GET /rsa/id/d 
+
+POST /rsa/instance 
+
+POST /rsa/id/crypted_message  
+POST /rsa/id/decrypted_message 

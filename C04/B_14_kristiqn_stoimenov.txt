@@ -1,0 +1,11 @@
+POST http://localhost:3000/rsa/new_key
+
+curl -X POST -H "Content-Type: application/json" -d @./message.json http://localhost:3000/rsa/encrypt/index
+
+curl -X POST -H "Content-Type: application/json" -d @./message.json http://localhost:3000/rsa/decrypt/index
+
+GET http://localhost:3000/rsa/n/index
+
+GET http://localhost:3000/rsa/e/index
+
+GET http://localhost:3000/rsa/d/index

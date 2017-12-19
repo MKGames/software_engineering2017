@@ -1,0 +1,6 @@
+POST "/rsas" -> returns id1
+GET "/rsas/:id1" -> returns the keys for id1
+	-GET "/rsas/:id1/?" values = priveate returns d
+	-GET "/rsas/:id1/?" values = public returns e
+POST "/rsas/:id1/encrypt_msg/?" message = "Test" //returns id2 for the crypted message
+POST "/rsas/:id1/"

@@ -1,0 +1,20 @@
+POST	/RSA/new?n=1&e=2&d=3................Initialize
+
+GET		RSA/:id/n...........................Gets the va ue for n from
+											the class instance with :id
+
+GET		RSA/:id/e...........................Gets the value for e from
+											the class instance with :id
+
+
+GET		RSA/:id/d...........................Gets the value for d from
+											the class instance with :id
+	
+
+POST	/RSA/new............................Method new_key. Returns 
+
+GET		/RSA/:id/enc_messages/:id2..........Encrypts message with id2
+
+POST	/RSA/:id/dec_messages?message=id2...Decrypts message with id2
+
+

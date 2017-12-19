@@ -1,0 +1,10 @@
+POST /rsas -> id
+POST /rsas?n=1&e=2&d=3 -> initialize
+GET /rsas/:id -> n, e, d
+GET /rsas/:d?values=public -> n, e
+GET /rsas/:d?values=private -> d
+POST /rsas/:id/ecryption.messages?m=message -> id
+GET /rsas/:id/encrypted.messages/:id -> m
+POST /rsas/:id/decryption.messages?m=message_id -> id
+
+note: get params in url, post params in body request

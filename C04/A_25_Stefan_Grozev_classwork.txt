@@ -1,0 +1,26 @@
+POST: 
+	
+	  http://www.stefanherokuapp.com/rsas/ 	#calls new_key
+
+	  http://www.stefanherokuapp.com/rsas?n=1&d=4&e=5 	#calls initialize
+	 
+	  http://www.stefanherokuapp.com/rsas/:id/enc_messages?m=...	#encrypts the "m" message
+
+	  http://www.stefanherokuapp.com/rsas/:id/dec_messages?m_id=id2 #decrypts the message with "id2"
+
+GET: 
+
+	 http://www.stefanherokuapp.com/rsas/:id?values=public #returns n & e which are the public parts
+
+	 http://www.stefanherokuapp.com/rsas/:id?values=private #returns d
+	 
+	 http://www.stefanherokuapp.com/rsas/:id/enc_messages/:id2 #returns the encrypted message
+
+	 
+PUT:
+
+
+DELETE:
+
+		http://www.stefanherokuapp.com/rsas?value=id #deletes the message with "id"
+		

@@ -1,0 +1,17 @@
+POST /rsas?n= &e= &d=  #initialize or new keys
+POST /rsas/:id/encrypted.messages?message= #encrypting message
+POST /rsas/:id/decrypt?message= #decrypts a given message 
+PUST /rsas/:id/decrypt/encrypted.messages/:id= #decrypt the message with the given id
+
+
+GET /rsas/:id?values=   #returns n, e ,d if values == public it returns n and e if values == private it returns d if values == nill && all it returns n,e,d
+GET /rsas/:id/n  #returns n
+GET /rsas/:id/e  #returns e
+GET /rsas/:id/d  #returns d
+
+GET /rsas/:id/encrypted.messages/:id2 #returns the id of the encrypted message
+
+
+DELETE /rsas   #removing all RSAs
+DELETE /rsas/:id   #removing one RSA with the id
+

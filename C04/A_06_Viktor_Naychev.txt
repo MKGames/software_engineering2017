@@ -1,0 +1,10 @@
+POST /new -> initialize
+
+GET /n?id=:id          -> n
+GET /e?id=:id          -> e
+GET /d?id=:id          -> d
+
+GET /new_key           -> new_key
+
+GET /encrypt?id=:id    -> encrypt
+GET /decrypt?id=:id    -> dencrypt

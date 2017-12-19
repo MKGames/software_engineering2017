@@ -1,0 +1,6 @@
+POST /rsas	#create new key
+GET /rsas/keys/:id/n	#get n
+GET /rsas/keys/:id/e	#get e
+GET /rsas/keys/:id/d	#get d
+POST /rsas/:id/enc_messages?m=enc_mes	#encrypts message m
+POST /rsas/:id/dec_messages?m=dec_mes	#decrypts message m
