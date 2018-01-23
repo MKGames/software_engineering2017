@@ -1,14 +1,18 @@
+  setInterval('window.location.reload()', 60000);
+
  function myBallDraw() {
 	var canvas = document.getElementById('tutorial');
 	if (canvas.getContext) {
 	  var ctx = canvas.getContext('2d');
 	}
 
+	var clicks;
 	var raf;
 	var lives = 3;
 	var streak = 0;
 	function draw() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		
 		ball.draw();
 		ball.x += ball.vx;
 		ball.y += ball.vy;
@@ -51,7 +55,7 @@
 	  vx: 5,
 	  vy: 1,
 	  radius: 80,
-	  color: 'blue',
+	  color: 'yellow',
 	  is_mouse_over: function(x,y) {
 	  	return ((this.x - radius) < x < (this.x + radius)) 
 	  		&& ((this.y - radius) < y < (this.y + radius));
@@ -70,6 +74,7 @@
 		&& (e.y < ball.y + ball.radius && e.y > ball.y - ball.radius)){
 			ball.radius *= .8;
 			streak++;
+			clicks++;
 			changeVelocity();
 			ball.color = "white";
 		} else {
@@ -79,6 +84,8 @@
 			ball.color = "red";
 		}
 		if(streak % 3 == 0) lives++;
+
+
 		/*if(lives <= 0){
 			location.reload();
 			alert("You died");
