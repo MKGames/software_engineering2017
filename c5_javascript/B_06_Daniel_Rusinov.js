@@ -3,6 +3,8 @@ function init(){
   alert("Не се препоръчва за хора с фоточувствителна епилепсия!");
 
         var canvas = document.querySelector('canvas');
+        canvas.width = 800;
+        canvas.height = 600;
         var ctx = canvas.getContext('2d');
         var lives = 3;
         var raf;
