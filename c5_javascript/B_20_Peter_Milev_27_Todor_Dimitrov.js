@@ -2,12 +2,7 @@ function myBallDraw() {
     var canvas = document.getElementById('ballGame');
     if (canvas.getContext) {
       var ctx = canvas.getContext('2d');
-    }
-	
-	var score_canvas = document.getElementById('score');
-	if (score_canvas.getContext) {
-	  var score_ctx = score_canvas.getContext('2d');
-	  score_ctx.font = "30px Arial";
+	  ctx.font = "30px Arial";
 	}
  
     var raf;
@@ -35,8 +30,7 @@ function myBallDraw() {
 		  /*if(balls.length > 1 && i == 1) {
 			document.getElementById('check').innerHTML = "x1 = " + balls[0].x + "\n" + "x2 = " + balls[1].x;}*/
         }
-		score_ctx.clearRect(0, 0, score_canvas.width, score_canvas.height);
-		score_ctx.fillText("Score: " + score, 20, 30);
+		ctx.fillText("Score: " + score, 20, 30);
 		
         raf = window.requestAnimationFrame(draw);		
     };
