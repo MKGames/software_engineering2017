@@ -20,18 +20,29 @@ function myBallDraw() {
 	 if(ball.y >45)
 	{
 	  	ball.vy =ball.vy-1;
+		if(ball.y + ball.radius + ball.vy > canvas.height
+	   || ball.y - ball.radius + ball.vy < 0) {
+	  	ball.vy = -ball.vy;
+	  }
 	  }
 	 
 	  if(ball.x + ball.radius + ball.vx > canvas.width
 	   || ball.x - ball.radius + ball.vx < 0) {
 	  	ball.vx = -ball.vx;
+		//ball.vx+=4;
 	  }
-	 if(ball.x  > 400) {
+	 if(ball.x <canvas.width && ball.x>400) {
 	  	ball.vx =2+ball.vx;
+		
+	  /*if(ball.x + ball.radius + ball.vx > canvas.width
+	   || ball.x - ball.radius + ball.vx < 0) {
+	  	ball.vx = -ball.vx;
+	  }*/
 	  }
 
-	ctx.fillRect(45,90,50,50);
-	ctx.strokeRect(400,400,50,50);
+	//ctx.fillRect(45,90,50,50);
+	ctx.fillStyle="red";
+	ctx.fillRect(0,200,canvas.width,canvas.height-100);
 	  raf = window.requestAnimationFrame(draw);
 	}
 
