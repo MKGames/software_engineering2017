@@ -89,6 +89,7 @@ function Circle(x, y, dx, dy, radius){
         }else if(this.radius > this.minRadius){
             this.radius -= 1;
         }
+
         //Game
         if((ballPosition.x - 10 < this.x + this.radius && ballPosition.x - 10 > this.x - this.radius)
         && (ballPosition.y - 10 < this.y + this.radius && ballPosition.y - 10 > this.y - this.radius) && this.color == desiredColor
@@ -132,9 +133,15 @@ function animate() {
     c.font = '80px arial';
     c.fillStyle = desiredColor;
     c.fillText(points, 10, 70);
+    let well_done = true;
 
     for (let i = 0; i < circleArray.length; i++) {
         circleArray[i].update();
+        if(circleArray[i].color == desiredColor){well_done = false;}
+    }
+    if (well_done){
+        alert("Well done");
+        location.reload();
     }
 }
 
