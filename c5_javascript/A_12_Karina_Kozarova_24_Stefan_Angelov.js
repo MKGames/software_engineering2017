@@ -71,17 +71,20 @@
 			ball.radius *= .8;
 			streak++;
 			changeVelocity();
+			ball.color = "white";
 		} else {
 			lives--;
 			streak = 0;
 			ball.vx *= 0.8;
+			ball.color = "red";
 		}
 		if(streak % 3 == 0) lives++;
-		if(lives <= 0){
+		/*if(lives <= 0){
 			location.reload();
 			alert("You died");
 		}
 		document.getElementById("stats").innerHTML = "Lives:" + " " + lives + " Streak: " + streak;
+		*/
 
 	});
 	//moveCanvas();
