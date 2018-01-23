@@ -27,17 +27,20 @@
 	}
 
 
-	function moveCanvas()
+/*	function moveCanvas()
 	{
-		/*var div = document.getElementById('div');
-		div.style.padding = "100px";*/
+		var div = document.getElementById('div');
+		div.style.padding = "100px";
 		
 	}
-
+*/
+	function randomIntFromInterval(min,max){
+	    return Math.floor(Math.random()*(max-min+1)+min);
+	}
 
 	function changeVelocity(){
-		ball.vx *= 1.4;
-		ball.vy *= 1.4;
+		ball.vx *= randomIntFromInterval(1,5);
+		ball.vy *= randomIntFromInterval(1,5);
 		ball.vy *= -1;
 		ball.vx *= -1;
 	}
@@ -81,10 +84,9 @@
 		document.getElementById("stats").innerHTML = "Lives:" + " " + lives + " Streak: " + streak;
 
 	});
-	moveCanvas();
+	//moveCanvas();
+	canvas.style.backgroundImage = "url(https://sports.cbsimg.net/images/nhl/blog/NHL_Patrick_Kane_Investigation.jpg)";
 	draw();
 	
 }
 myBallDraw();
-
-
