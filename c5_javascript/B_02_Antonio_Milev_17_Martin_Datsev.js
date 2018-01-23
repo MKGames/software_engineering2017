@@ -127,7 +127,7 @@
 
  //var ball = new Image();
  //ball.src = 'ball.png';
- let canvas = document.getElementById('game');
+ let canvas = document.getElementById('canvas');
  let ctx = canvas.getContext('2d');
 
  function setup() {
