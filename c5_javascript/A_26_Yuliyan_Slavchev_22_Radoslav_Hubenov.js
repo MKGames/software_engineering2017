@@ -82,7 +82,7 @@ function draw() {
       Bullet.keyPressed = false;
       Bullet.y = Weapon.y + 10;
       Bullet.x = Weapon.x + 41;
-      Ball.color = 'red';
+      Ball.color = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
     }else{
       alert("YOU GOT HIT!");
       document.location.reload();
