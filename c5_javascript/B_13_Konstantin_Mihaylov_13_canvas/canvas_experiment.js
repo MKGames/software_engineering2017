@@ -133,7 +133,6 @@ var mousePosition = new Array();
 	}
 	init();
 }
-
 /*
 function myBallDraw() {
 	var canvas = document.getElementById('tutorial');
