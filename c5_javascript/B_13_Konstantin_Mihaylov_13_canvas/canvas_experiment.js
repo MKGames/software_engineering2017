@@ -2,7 +2,8 @@ window.onload = function(){
 
 var ctx;
 var gravity = 4;
-var forceFactor = 0.3;
+var forceFactor = 0.5;
+var sizeOfBalls = 25;
 var mouseDown = false;
 var balls = new Array();
 var mousePosition = new Array();
@@ -18,14 +19,14 @@ var mousePosition = new Array();
 		balls.push(new ball(mousePosition["downX"], mousePosition["downY"],
 		 (events.pageX - mousePosition["downX"]) * forceFactor ,
 	   (events.pageY - mousePosition["downY"]) * forceFactor,
-		 5 + (Math.random()*10), 0.9, random_color()));
+		sizeOfBalls + (Math.random()*10), 0.9, random_color()));
 
 		//CREATE THE BALL
 	}
 
 	function onMouseMove(events){
-		mousePosition['currentX'] = events.posX;
-		mousePosition['currentY'] = events.posY;
+		mousePosition['currentX'] = events.pageX;
+		mousePosition['currentY'] = events.pageY;
 	}
 
 	$(document).mousedown(onMouseDown);
@@ -55,10 +56,46 @@ var mousePosition = new Array();
 			return color;
 	}
 
+  function arrow(fromx, fromy, tox, toy, color){
+		ctx.beginPath();
+		var headlen = 10;
+		var angle = Math.atan2(toy - fromy, tox - fromx);
+		ctx.moveTo(fromx, fromy);
+		ctx.lineTo(tox, toy);
+		ctx.lineTo(tox - headlen*Math.cos(angle - Math.PI/6),
+			toy - headlen*Math.sin(angle-Math.PI/6));
+		ctx.moveTo(tox, toy);
+		ctx.lineTo(tox - headlen*Math.cos(angle + Math.PI/6),
+			toy - headlen*Math.sin(angle + Math.PI/6));
+
+		//fillStyle
+		ctx.lineWith = 1;
+		ctx.strokeStyle = color;
+		ctx.lineCap = "butt";
+		ctx.stroke();
+	}
+
 	function draw_ball(){
 		this.vy += gravity * 0.1;
 		this.x += this.vx * 0.1;
 		this.y += this.vy * 0.1;
+
+		if(this.x + this.r > canvas.width){
+			this.x = canvas.width - this.r;
+			this.vx *= -1 * this.b;
+		}
+		if(this.x - this.r < 0){
+			this.x = this.r;
+			this.vx *= -1 * this.b;
+		}
+		if(this.y + this.r > canvas.height){
+			this.y = canvas.height - this.r;
+			this.vy *= -1 * this.b;
+		}
+		if(this.y - this.r < 0){
+			this.y = this.r;
+			this.vy *= -1 * this.b;
+		}
 		circle(this.x, this.y, this.r, this.c);
 	}
 
@@ -73,10 +110,12 @@ var mousePosition = new Array();
 
 		this.draw = draw_ball;
 	}
+
 	function game_loop(){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	if(mouseDown == true){
 			//DRAW THE ARROW
+			arrow(mousePosition['downX'], mousePosition['downY'], mousePosition['currentX'], mousePosition['currentY'], "red")
 	}
 	for (var i = 0; i < balls.length; i++) {
 		//array[i]
@@ -94,6 +133,7 @@ var mousePosition = new Array();
 	}
 	init();
 }
+
 /*
 function myBallDraw() {
 	var canvas = document.getElementById('tutorial');
@@ -172,3 +212,4 @@ function myBallDraw() {
 }
 myBallDraw();
 */
+
