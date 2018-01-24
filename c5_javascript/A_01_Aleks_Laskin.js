@@ -1,4 +1,4 @@
-window.onload = function(){
+function myBallDraw(){
   function init(ctx){
     window.setInterval(ball.draw(), 1000);
   }
@@ -84,13 +84,13 @@ window.onload = function(){
       lives--;
 
     }
-                      document.getElementById("success").innerHTML = success;
-        document.getElementById("wins").innerHTML = wins;
+    document.getElementById("success").innerHTML = success;
+    document.getElementById("wins").innerHTML = wins;
     document.getElementById("loses").innerHTML = loses;
-          document.getElementById("lives").innerHTML = lives;
-
+    document.getElementById("lives").innerHTML = lives;
 
   });
 
   ball.draw();
 }
+
