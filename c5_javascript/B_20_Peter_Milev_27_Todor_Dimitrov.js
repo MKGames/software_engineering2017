@@ -14,6 +14,7 @@ function myBallDraw() {
    
    function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+		//document.getElementById('check').innerHTML = "";
         for(var i = 0; i < balls.length; i++){   
             balls[i].draw();
             balls[i].x += balls[i].vx;
@@ -28,9 +29,7 @@ function myBallDraw() {
            || balls[i].x - balls[i].radius + balls[i].vx < 0) {
             balls[i].vx = -balls[i].vx;
           }
-		  /*if(balls.length > 1 && i == 1) {
-			document.getElementById('check').innerHTML = "x1 = " + balls[0].x + "\n" + "x2 = " + balls[1].x;}*/
-			//document.getElementById('check').innerHTML = is_corect_click;
+		  //document.getElementById('check').innerHTML += "x" + i + " = " + balls[i].x + "  " + "y" + i + " = " + balls[i].y + "  " + balls[i].name + "<br>";
         }
 		ctx.fillText("Score: " + score, 20, 30);
 		
@@ -67,14 +66,15 @@ function myBallDraw() {
 				var new_ball = balls[i];
 				balls.splice(i, 1);
 				new_ball.radius *= 0.7;
-			    balls.push(new_ball);
-                balls.push(new_ball);
+			    balls.push(Object.assign({}, new_ball));
+                balls.push(Object.assign({}, new_ball));
                
-                balls[balls.length - 2].x = Math.floor(Math.random() * 600) + 100;
-                balls[balls.length - 2].y = Math.floor(Math.random() * 400) + 100;
-               
-                balls[balls.length - 1].x = Math.floor(Math.random() * 600) + 100;
-                balls[balls.length - 1].y = Math.floor(Math.random() * 400) + 100;
+                balls[balls.length - 2].x = 150; // Math.floor(Math.random() * 600) + 100;
+                balls[balls.length - 2].y = 150; // Math.floor(Math.random() * 400) + 100;
+
+                balls[balls.length - 1].x = 300; // Math.floor(Math.random() * 600) + 100;
+                balls[balls.length - 1].y = 300; // Math.floor(Math.random() * 400) + 100;
+
 				
 				if(e.x == ball.x && e.y == ball.y) {
 				score += 500;
