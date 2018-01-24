@@ -31,6 +31,7 @@ function myBallDraw() {
           }
 		  //document.getElementById('check').innerHTML += "x" + i + " = " + balls[i].x + "  " + "y" + i + " = " + balls[i].y + "  " + balls[i].name + "<br>";
         }
+		ctx.fillStyle = 'blue';
 		ctx.fillText("Score: " + score, 20, 30);
 		
         raf = window.requestAnimationFrame(draw);	
@@ -71,9 +72,11 @@ function myBallDraw() {
                
                 balls[balls.length - 2].x = 150; // Math.floor(Math.random() * 600) + 100;
                 balls[balls.length - 2].y = 150; // Math.floor(Math.random() * 400) + 100;
-
+				balls[balls.length - 2].curr_color = "#"+Math.floor(Math.random()*16777215).toString(16);
+				
                 balls[balls.length - 1].x = 300; // Math.floor(Math.random() * 600) + 100;
                 balls[balls.length - 1].y = 300; // Math.floor(Math.random() * 400) + 100;
+				balls[balls.length - 1].curr_color = "#"+Math.floor(Math.random()*16777215).toString(16);
 
 				
 				if(e.x == ball.x && e.y == ball.y) {
