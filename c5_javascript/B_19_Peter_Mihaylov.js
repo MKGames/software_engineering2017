@@ -1,4 +1,4 @@
-function  init() {
+function  myBallDraw() {
     var canvas = document.getElementById('tutorial');
     var s = document.getElementById('score');
     var l = document.getElementById('lives');
