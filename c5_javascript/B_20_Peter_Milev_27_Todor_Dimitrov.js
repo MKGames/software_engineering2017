@@ -14,7 +14,6 @@ function myBallDraw() {
    
    function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-		//document.getElementById('check').innerHTML = "";
         for(var i = 0; i < balls.length; i++){   
             balls[i].draw();
             balls[i].x += balls[i].vx;
@@ -29,10 +28,10 @@ function myBallDraw() {
            || balls[i].x - balls[i].radius + balls[i].vx < 0) {
             balls[i].vx = -balls[i].vx;
           }
-		  //document.getElementById('check').innerHTML += "x" + i + " = " + balls[i].x + "  " + "y" + i + " = " + balls[i].y + "  " + balls[i].name + "<br>";
         }
 		ctx.fillStyle = 'blue';
 		ctx.fillText("Score: " + score, 20, 30);
+		ctx.fillText("Lives: " + lives, 20, 60);
 		
         raf = window.requestAnimationFrame(draw);	
     };
@@ -72,15 +71,15 @@ function myBallDraw() {
                
                 balls[balls.length - 2].x = Math.floor(Math.random() * 600) + 100;
                 balls[balls.length - 2].y = Math.floor(Math.random() * 400) + 100;
-				balls[balls.length - 2].vx = Math.floor(Math.random() * 10) + 1;
-                balls[balls.length - 2].vy = Math.floor(Math.random() * 10) + 1;
-				balls[balls.length - 2].curr_color = "#"+Math.floor(Math.random()*16777215).toString(16);
+				balls[balls.length - 2].vx = Math.floor(Math.random() * 5) + 1;
+                balls[balls.length - 2].vy = Math.floor(Math.random() * 5) + 1;
+				balls[balls.length - 2].curr_color = "#" + Math.floor(Math.random()*16777215).toString(16);
 				
                 balls[balls.length - 1].x = Math.floor(Math.random() * 600) + 100;
                 balls[balls.length - 1].y = Math.floor(Math.random() * 400) + 100;
-				balls[balls.length - 1].vx = Math.floor(Math.random() * 10) + 1;
-                balls[balls.length - 1].vy = Math.floor(Math.random() * 10) + 1;
-				balls[balls.length - 1].curr_color = "#"+Math.floor(Math.random()*16777215).toString(16);
+				balls[balls.length - 1].vx = Math.floor(Math.random() * 5) + 1;
+                balls[balls.length - 1].vy = Math.floor(Math.random() * 5) + 1;
+				balls[balls.length - 1].curr_color = "#" + Math.floor(Math.random()*16777215).toString(16);
 
 				
 				if(e.x == ball.x && e.y == ball.y) {
@@ -97,12 +96,11 @@ function myBallDraw() {
 		if(!is_corect_click) {
 			lives--;
 				
-            if(lives < 1){
+            if(lives < 1) {
+				alert("You died");
                 location.reload();
-                alert("You died");
             }
 		}
     });
     draw();
 }
-myBallDraw();
