@@ -1,3 +1,31 @@
+/*
+WANTED TO USE:
+function hasSameColor(color, circle) {
+  return circle.color === color;
+}
+
+canvas.addEventListener('click', (e) => {
+  const mousePos = {
+    x: e.clientX - canvas.offsetTop,
+    y: e.clientY - canvas.offsetLeft
+  };
+  // get pixel under cursor
+  const pixel = ctx.getImageData(mousePos.x, mousePos.y, 1, 1).data;
+
+  // create rgb color for that pixel
+  const color = `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
+
+  // find a circle with the same colour
+  circles.forEach(circle => {
+    if (hasSameColor(color, circle)) {
+      alert('click on circle: ' + circle.id);
+    }
+  });
+ });
+ */
+
+
+
 function init() {
 	var canvas = document.getElementById('tutorial');
 	if (canvas.getContext) {
