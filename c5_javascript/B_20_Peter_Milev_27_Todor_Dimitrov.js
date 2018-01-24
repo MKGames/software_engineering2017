@@ -70,12 +70,16 @@ function myBallDraw() {
 			    balls.push(Object.assign({}, new_ball));
                 balls.push(Object.assign({}, new_ball));
                
-                balls[balls.length - 2].x = 150; // Math.floor(Math.random() * 600) + 100;
-                balls[balls.length - 2].y = 150; // Math.floor(Math.random() * 400) + 100;
+                balls[balls.length - 2].x = Math.floor(Math.random() * 600) + 100;
+                balls[balls.length - 2].y = Math.floor(Math.random() * 400) + 100;
+				balls[balls.length - 2].vx = Math.floor(Math.random() * 10) + 1;
+                balls[balls.length - 2].vy = Math.floor(Math.random() * 10) + 1;
 				balls[balls.length - 2].curr_color = "#"+Math.floor(Math.random()*16777215).toString(16);
 				
-                balls[balls.length - 1].x = 300; // Math.floor(Math.random() * 600) + 100;
-                balls[balls.length - 1].y = 300; // Math.floor(Math.random() * 400) + 100;
+                balls[balls.length - 1].x = Math.floor(Math.random() * 600) + 100;
+                balls[balls.length - 1].y = Math.floor(Math.random() * 400) + 100;
+				balls[balls.length - 1].vx = Math.floor(Math.random() * 10) + 1;
+                balls[balls.length - 1].vy = Math.floor(Math.random() * 10) + 1;
 				balls[balls.length - 1].curr_color = "#"+Math.floor(Math.random()*16777215).toString(16);
 
 				
