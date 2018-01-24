@@ -7,8 +7,10 @@ window.onload = function(){
 	function init(){
 		window.requestAnimationFrame(draw);
 	}
-		
-	var canvas = document.getElementById("canvas");
+	var canvas = document.querySelector("canvas");
+	canvas.height = 600;
+	canvas.width = 1000;
+	canvas.style.cursor = "none";
 	var ctx = canvas.getContext("2d");
 	
 	var img = new Image();
@@ -55,6 +57,7 @@ window.onload = function(){
 		ctx.drawImage(bg, 0,0,canvas.width, canvas.height);
 		
 		ctx.lineWidth = this.lineWidth;
+		
 		ctx.strokeStyle = this.color;
 		ctx.rect(window.mousePos.x,window.mousePos.y,this.radius,this.radius*-canvas.height);
 		ctx.stroke();
@@ -62,7 +65,10 @@ window.onload = function(){
 		ctx.drawImage(img, window.mousePos.x - 12.5, window.mousePos.y-2, 30, 25);
 		
 		
-		if(balls.length == 0)window.alert("You won with " + points + " points and " + clicks + " clicks!");
+		if(balls.length == 0){
+			window.alert("You won with " + points + " points and " + clicks + " clicks!");
+			location.reload();
+		}
 		
 		for(var i=0; i<balls.length; i++){
 			var b = balls[i];
