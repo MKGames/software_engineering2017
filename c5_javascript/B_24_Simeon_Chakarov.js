@@ -53,7 +53,7 @@ function init() {
 		if((e.x - 10 < ball.x + ball.radius && e.x + 10 > ball.x - ball.radius)
 		&& (e.y - 10 < ball.y + ball.radius && e.y + 10 > ball.y - ball.radius)
 			){
-			ball.radius *= .8;
+			ball.radius /= 1.1;
 		} else {
 			lives--;
 		}
