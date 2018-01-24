@@ -6,6 +6,7 @@ function myBallDraw() {
 	}
  
     var raf;
+	var is_corect_click = 0;
     var lives = 3;
 	var score = 0;
 	var bonus = 80;
@@ -29,10 +30,11 @@ function myBallDraw() {
           }
 		  /*if(balls.length > 1 && i == 1) {
 			document.getElementById('check').innerHTML = "x1 = " + balls[0].x + "\n" + "x2 = " + balls[1].x;}*/
+			//document.getElementById('check').innerHTML = is_corect_click;
         }
 		ctx.fillText("Score: " + score, 20, 30);
 		
-        raf = window.requestAnimationFrame(draw);		
+        raf = window.requestAnimationFrame(draw);	
     };
    
     var ball = {
@@ -57,8 +59,8 @@ function myBallDraw() {
 
     balls.push(ball);
 	
-	var is_corect_click = 0;
     canvas.addEventListener('click', function(e){
+		is_corect_click = 0;
         for(var i = 0; i < balls.length; i++){
             if((e.x - 10 < balls[i].x + balls[i].radius && e.x - 10 > balls[i].x - balls[i].radius)
             && (e.y - 10 < balls[i].y + balls[i].radius && e.y - 10 > balls[i].y - balls[i].radius)) {
@@ -73,7 +75,6 @@ function myBallDraw() {
                
                 balls[balls.length - 1].x = Math.floor(Math.random() * 600) + 100;
                 balls[balls.length - 1].y = Math.floor(Math.random() * 400) + 100;
-				is_corect_click = 1;
 				
 				if(e.x == ball.x && e.y == ball.y) {
 				score += 500;
@@ -81,6 +82,8 @@ function myBallDraw() {
 					bonus += 20;
 					score += bonus;
 				}
+				
+				is_corect_click = 1;
 				break;
             }
         }
