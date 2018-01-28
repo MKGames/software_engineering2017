@@ -7,7 +7,6 @@ function getRandomArbitrary(min, max) {
 }
 
 function myBallDraw() {
-
     window.name;
 
     function resetButton() {
@@ -21,11 +20,8 @@ function myBallDraw() {
         btn2.appendChild(t2);
         document.body.appendChild(btn2);
 
-
         btn.addEventListener('click', function(e) {
-            // console.log("CLICKED");
             location.reload();
-            // window.cancelAnimationFrame(raf);
             running = false;
             clear();
             ball.x = e.clientX;
@@ -52,14 +48,15 @@ function myBallDraw() {
       ctxGoal = canvas.getContext('2d');
       goal.width = 120;
       goal.height = 20;
-      // goal.style.zIndex = 8;
-      // goal.style.position = "absolute";
-      // goal.style.border = "1px solid";
-      // ctxGoal.beginPath();
-      // ctxGoal.rect(300, canvas.height - 20, goal.width, goal.height);
-      // ctxGoal.fillStyle = "red";
-      // ctxGoal.fill();
       document.body.appendChild(goal);
+
+      var goalFill = document.createElement("canvas");
+      goalFill.id = "goalFill";
+      var canvasGoalFill = document.getElementById('goalFill');
+      ctxGoalFill = canvas.getContext('2d');
+      goalFill.width = goal.width - 20;
+      goalFill.height = goal.height - 5;
+      document.body.appendChild(goalFill);
     }
     drawGoal();
 
@@ -102,7 +99,16 @@ function myBallDraw() {
       ctx.fillRect(0, 0, canvas.width, 300);
       ctxGoal.fillStyle = goalColor;
       ctxGoal.fillRect(goalPosition, canvas.height - 20, goal.width, goal.height);
-      // drawWave();
+      ctxGoalFill.fillStyle = 'rgba(115, 196, 255, 1)';
+      ctxGoalFill.fillRect((goalPosition + 10), canvas.height - 20, goalFill.width, goalFill.height);
+      ctx.font = '40px arial';
+      ctx.fillStyle = "Black";
+      ctx.fillText("Score: ", 10, 70);
+      ctx.fillText(window.name, 130, 70);
+      // ctx.beginPath();
+      // ctx.arc(0, (canvas.height / 2), 100, 2, 2 * Math.PI);
+      // ctx.fillStyle = 'rgba(115, 196, 255, 1)';
+      // ctx.fill();
     }
 
     function draw() {
@@ -110,16 +116,15 @@ function myBallDraw() {
       ball.draw();
       ball.x += ball.vx; // movement
       ball.y += ball.vy;
-      if((ball.y + ball.radius) > canvas.height / 2) {
+
+      if((ball.y + ball.radius) > canvas.height / 2) { // if its inside the water it slows down
         ball.vy -= .22;
-        if((ball.y + ball.radius) > canvas.height / 1.2) {
+        if((ball.y + ball.radius) > canvas.height / 1.2) { // had to do something to keep the ball from flying up
           ball.vy += .22;
-          if(ball.y + ball.radius + ball.vy > canvas.height || ball.y - ball.radius + ball.vy < 0) {
-            if((ball.x + ball.radius + ball.vx > goalPosition || ball.x - ball.radius + ball.vx < 0) && (ball.x + ball.radius + ball.vx > goalPosition || ball.x - ball.radius + ball.vx < canvas.width)) { // this doesnt work b
-              console.log('hello');
+          if(ball.y + ball.radius + ball.vy > canvas.height || ball.y - ball.radius + ball.vy < 0) { // if the ball has reached the goal
+            if(ball.x > goalPosition && ball.x < goalPosition + goal.width) {
+              window.name++;
             }
-            // ball.vy = 0;
-            // ball.vx = 0;
             window.cancelAnimationFrame(raf);
           }
         }
@@ -128,7 +133,6 @@ function myBallDraw() {
           ball.vy += .25;
       }
 
-
       if(ball.y + ball.radius + ball.vy > canvas.height || ball.y - ball.radius + ball.vy < 0) {
         ball.vy = 0;
         ball.vx = 0;
@@ -136,8 +140,8 @@ function myBallDraw() {
       if(ball.x + ball.radius + ball.vx > canvas.width || ball.x - ball.radius + ball.vx < 0) {
         ball.vx = -ball.vx;
       }
-
       raf = window.requestAnimationFrame(draw);
+      
     }
 
     canvas.addEventListener('mousemove', function(e) {
@@ -150,18 +154,11 @@ function myBallDraw() {
     });
 
     canvas.addEventListener('click', function(e) {
-      window.name++;
-      console.log(window.name);
       if(!running) {
         raf = window.requestAnimationFrame(draw);
         running = true;
       }
     });
-
-    // canvas.addEventListener('mouseout', function(e) {
-    //   window.cancelAnimationFrame(raf);
-    //   running = false;
-    // });
 
     ball.draw();
 }
