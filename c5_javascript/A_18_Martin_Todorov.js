@@ -1,3 +1,11 @@
+function randomColors() {
+  return '#' + Math.floor(Math.random() * 16777215).toString(16);
+}
+
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
 function myBallDraw() {
 
     window.name;
@@ -42,15 +50,15 @@ function myBallDraw() {
       goal.id = "goal";
       var canvasGoal = document.getElementById('goal');
       ctxGoal = canvas.getContext('2d');
-      goal.width = 100;
+      goal.width = 120;
       goal.height = 20;
-      goal.style.zIndex = 8;
-      goal.style.position = "absolute";
-      goal.style.border = "1px solid";
-      ctxGoal.beginPath();
-      ctxGoal.rect(300, canvas.height + 20, goal.width, goal.height);
-      ctxGoal.fillStyle = "red";
-      ctxGoal.fill();
+      // goal.style.zIndex = 8;
+      // goal.style.position = "absolute";
+      // goal.style.border = "1px solid";
+      // ctxGoal.beginPath();
+      // ctxGoal.rect(300, canvas.height - 20, goal.width, goal.height);
+      // ctxGoal.fillStyle = "red";
+      // ctxGoal.fill();
       document.body.appendChild(goal);
     }
     drawGoal();
@@ -83,11 +91,17 @@ function myBallDraw() {
       }
     };
 
+    var goalPosition = getRandomArbitrary(goal.width, canvas.width - goal.width);
+    var goalColor = randomColors();
+    
+
     function clear() {
       ctx.fillStyle = 'rgba(115, 196, 255, 1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = 'rgba(255, 255, 255, 1)';
       ctx.fillRect(0, 0, canvas.width, 300);
+      ctxGoal.fillStyle = goalColor;
+      ctxGoal.fillRect(goalPosition, canvas.height - 20, goal.width, goal.height);
       // drawWave();
     }
 
@@ -101,7 +115,9 @@ function myBallDraw() {
         if((ball.y + ball.radius) > canvas.height / 1.2) {
           ball.vy += .22;
           if(ball.y + ball.radius + ball.vy > canvas.height || ball.y - ball.radius + ball.vy < 0) {
-            console.log("Touched");
+            if((ball.x + ball.radius + ball.vx > goalPosition || ball.x - ball.radius + ball.vx < 0) && (ball.x + ball.radius + ball.vx > goalPosition || ball.x - ball.radius + ball.vx < canvas.width)) { // this doesnt work b
+              console.log('hello');
+            }
             // ball.vy = 0;
             // ball.vx = 0;
             window.cancelAnimationFrame(raf);
