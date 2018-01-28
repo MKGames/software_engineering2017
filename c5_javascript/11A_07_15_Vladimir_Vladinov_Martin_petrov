@@ -104,7 +104,7 @@ window.onload = function(){
 			return;
 		}
 		
-		for(var i=0; i<balls.length; i++){
+		for(var i = balls.length-1; i>=0; i--){
 			var b = balls[i];
 			if(b.radius <= 0){
 				balls.splice(i,1);
@@ -131,7 +131,7 @@ window.onload = function(){
 				ctx.fillText(points + " points", canvas.width/2, canvas.height/3+30);
 				ctx.fillText(clicks + " clicks", canvas.width/2, canvas.height/3+60);
 				if(clicks==0)clicks++;
-				ctx.fillText(Math.round(points*100/clicks) + "% accuracy", canvas.width/2, canvas.height/3+90);
+				ctx.fillText(Math.round((points*100/clicks)*10)/10 + "% accuracy", canvas.width/2, canvas.height/3+90);
 				ctx.fillText("Press any button to try again", canvas.width/2, canvas.height/3+150);
 				return;
 			}
@@ -168,6 +168,7 @@ window.onload = function(){
 			window.mousePos = getMousePos(canvas, e);
 			raf = window.requestAnimationFrame(draw);
 			started = true;
+			lives = 10000;
 		}
 	});
 	
