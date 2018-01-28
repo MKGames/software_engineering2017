@@ -3,7 +3,7 @@ window.onload = function(){
 	var ctx = canvas.getContext("2d");
 	
 	var img = new Image();
-	img.src = 'https://img.itch.zone/aW1hZ2UvNTk0MjAvMjY3MzY5LnBuZw==/original/BAOyZX.png';
+	img.src = "https://img.itch.zone/aW1hZ2UvNTk0MjAvMjY3MzY5LnBuZw==/original/BAOyZX.png";
 	
 	var bg = new Image();
 	bg.src = "https://i.stack.imgur.com/Mv83H.png";
