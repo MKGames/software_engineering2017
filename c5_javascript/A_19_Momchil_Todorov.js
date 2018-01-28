@@ -7,13 +7,28 @@ function getRandomColor() {
   return color;
 }
 
-function work()
+window.onload = function()
 {
-	var canvas = document.getElementById('canvas');
+	var canvas = document.createElement("canvas");
+	canvas.id = "canvas";
+	canvas.width = "1000";
+	canvas.height = "600";
+	canvas.style = "border: 1px solid";
+	document.body.appendChild(canvas);
+	
 	var ctx = canvas.getContext('2d');
 	var raf;
 	var points = 0;
 	var lifeCount = 3;
+	
+	var lives = document.createElement("h1");
+	lives.innerHTML = "Lives: " + lifeCount;
+	document.body.appendChild(lives);
+	
+	var score = document.createElement("h1");
+	score.innerHTML = "Score: " + points;
+	document.body.appendChild(score);
+	
 	var ball = {
 	  x: Math.floor(Math.random() * (canvas.width-200)) + 200,
 	  y: Math.floor(Math.random() * (canvas.height-200)) + 200,
@@ -61,16 +76,16 @@ function work()
 		if((Math.abs(ball.x - e.x) < ball.radius) && (Math.abs(ball.y - e.y) < ball.radius))    
 		{
 			points++;
-			//document.getElementById("score").innerHTML = points;
+			score.innerHTML = "Score: " + points;
 			ball.color = getRandomColor();
 			ball.radius /= 1.2;
 			ball.vx *= 1.1;
-			ball.vy *= 1.1
+			ball.vy *= 1.1;
 		}
 		else
 		{
 			lifeCount--;
-			//document.getElementById("lives").innerHTML = lifeCount;
+			lives.innerHTML = "Lives: " + lifeCount;
 			if(lifeCount==0) 
 			{
 				location.reload();
@@ -79,4 +94,4 @@ function work()
 		}
 	});
 	ball.draw();
-}
+};
