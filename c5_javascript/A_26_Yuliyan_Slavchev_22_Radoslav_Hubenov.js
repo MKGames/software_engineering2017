@@ -25,6 +25,12 @@ function drawScore() {
     ctx.fillText("Score: "+ score, 8, 20);
 }
 
+function keysToPlay() {
+	ctx.font = "16px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText("Shoot with space, move with arrows!", 300 , 20);
+}
+
 let Ball;
 let Weapon;
 let Bullet;
@@ -42,9 +48,12 @@ function getDistance(x1, y1, x2, y2) {
   var y_distance = y2 - y1;
   return Math.sqrt(Math.pow(x_distance, 2) + Math.pow(y_distance, 2));
 }
-let BallHasChild = true;
+
+
+
 function draw() {
   ctx.clearRect(0,0, canvas.width, canvas.height);
+  keysToPlay();
   drawScore();
   Ball.draw();
   Weapon.draw();
