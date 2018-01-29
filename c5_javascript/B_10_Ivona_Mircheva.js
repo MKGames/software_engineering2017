@@ -1,25 +1,27 @@
+
 "use strict";
 // Initial Setup
-let canvas = document.querySelector('canvas'); //searches until it finds the canvas tag
-let c = canvas.getContext('2d'); //c for content :)
 
-// canvas.width = 800; //or window.canvas.width
-// canvas.height = 600;
+var canvas = document.getElementById('tutorial'); //searches until it finds the canvas tag
+var c = canvas.getContext('2d'); //c for content :)
 
-let lives = 3;
-let points = 0;
+canvas.width = 800; //or window.canvas.width
+canvas.height = 600;
 
-let mouse = {
-    x: undefined,
-    y: undefined
+var lives = 3;
+var points = 0;
+
+var mouse = {
+    x: null,
+    y: null
 }
 
-let ballPosition = {
-    x: undefined,
-    y: undefined
+var ballPosition = {
+    x: null,
+    y: null
 }
 
-let colorArray = [
+var colorArray = [
     '#FF4500',
     '#89FFDE',
     '#10234E',
@@ -27,8 +29,7 @@ let colorArray = [
     '#581845'
 ];
 
-let desiredColor = colorArray[Math.floor(Math.random() * colorArray.length)];
-// document.getElementById("dead_inside").style.color = desiredColor;
+var desiredColor = colorArray[Math.floor(Math.random() * colorArray.length)];
 
 window.addEventListener('mousemove',
     function(event){
@@ -41,7 +42,7 @@ window.addEventListener('resize',
     function(){
         canvas.width = canvas.width; //or window.canvas.width
         canvas.height = canvas.height;
-        init();
+        // init();
 });
 
 canvas.addEventListener('click',
@@ -56,17 +57,17 @@ function Circle(x, y, dx, dy, radius){
     this.dx = dx;
     this.dy = dy;
     this.radius = radius;
-    this.minRadius = radius;
-    this.color = colorArray[Math.floor(Math.random() * colorArray.length)];
-    let maxRadius = 40;
-    let lastX = ballPosition.x;
-    let lastY = ballPosition.y;
 
+    var minRadius = radius;
+    var color = colorArray[Math.floor(Math.random() * colorArray.length)];
+    var maxRadius = 40;
+    var lastX = ballPosition.x;
+    var lastY = ballPosition.y;
 
     this.draw = function(){
         c.beginPath();
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        c.fillStyle = this.color;
+        c.fillStyle = color;
         c.fill();
     }
 
@@ -86,44 +87,39 @@ function Circle(x, y, dx, dy, radius){
             if(this.radius < maxRadius){
                 this.radius += 1;
             }
-        }else if(this.radius > this.minRadius){
+        } else if(this.radius > minRadius){
             this.radius -= 1;
         }
 
         //Game
-        if((ballPosition.x - 10 < this.x + this.radius && ballPosition.x - 10 > this.x - this.radius)
-        && (ballPosition.y - 10 < this.y + this.radius && ballPosition.y - 10 > this.y - this.radius) && this.color == desiredColor
-            ){
-            // this.color = '#FFFFFF';
-            this.color = "rgba(255, 255, 255, 0)";
+        if((ballPosition.x < this.x + this.radius && ballPosition.x > this.x - this.radius)&&(ballPosition.y < this.y + this.radius && ballPosition.y > this.y - this.radius)&&color == desiredColor)
+        {
+            color = "rgba(255, 255, 255, 0)";
             points++;
-            // document.getElementById("dead_inside").innerHTML = "Click this color! Points: " + points;
         }
-        // else if (ballPosition.x != undefined){
-        //     lives--;
-        //     document.getElementById("dead_inside").innerHTML = "Click this color! Lives: " + lives + " Points: " + points;
-        // }
 
-        // if(lives < 1){
-        //     document.getElementById("dead_inside").innerHTML = "You died! Lives: " + lives + " Points: " + points;
-        // }
         this.draw();
 
     }
+
+    this.getColor = function(){
+        return color;
+    }
 }
-let circleArray = [];
+
+var circleArray = [];
 
 function init(){
-    alert("Click the balls with the same color as the displayed points! Have fun!");
+    // alert("Click the balls with the same color as the displayed points! Have fun!");
     circleArray = [];
-    for (let i = 0; i < 100; i++) {
-        let radius = (Math.random() * 3) + 3;
-        let x = Math.random() * (canvas.width - radius * 2) + radius;
-        let y = Math.random() * (canvas.width - radius * 2) + radius;
-        let dx = (Math.random() - 0.5) * 5;
-        let dy = (Math.random() - 0.5) * 5;
-        circleArray.push(new Circle(x, y, dx, dy, radius));
+    for (var i = 0; i < 15; i++) {
+        var radius = (Math.random() * 3) + 7;
+        var x = Math.random() * canvas.width * 0.5;
+        var y = Math.random() * canvas.height * 0.5;
+        var dx = (Math.random() - 0.5) * 5;
+        var dy = (Math.random() - 0.5) * 5;
 
+        circleArray.push(new Circle(x, y, dx, dy, radius));
     }
 }
 
@@ -133,13 +129,14 @@ function animate() {
     c.font = '80px arial';
     c.fillStyle = desiredColor;
     c.fillText(points, 10, 70);
-    let well_done = true;
+    var game_won = true;
 
-    for (let i = 0; i < circleArray.length; i++) {
+    for (var i = 0; i < circleArray.length; i++) {
         circleArray[i].update();
-        if(circleArray[i].color == desiredColor){well_done = false;}
+        if(circleArray[i].getColor() == desiredColor) game_won = false;
     }
-    if (well_done){
+
+    if (game_won){
         alert("Well done");
         location.reload();
     }

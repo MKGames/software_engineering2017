@@ -1,4 +1,8 @@
-var canvas = document.getElementById('canvas');
+var canvas = document.createElement('canvas');
+document.body.appendChild(canvas);
+canvas.id = 'canvas';
+canvas.width = 800;
+canvas.height = 600;
 var ctx = canvas.getContext('2d');
 var raf;
 var lives = 5;
@@ -13,7 +17,7 @@ var counter;
 
 var Balls = [];
 Balls.push(new Ball('gold'));
-for(var i = 0; i < 5; ++i){
+for(var i = 0; i < 6; ++i){
   Balls.push(new Ball('blue'));
 }
 
@@ -166,7 +170,7 @@ canvas.addEventListener('click', function(e) {
   }
 
   if(lives < 1){
-    window.alert("Uded");
+    window.alert("Uded... score: " + score);
     location.reload();
   }
 });
