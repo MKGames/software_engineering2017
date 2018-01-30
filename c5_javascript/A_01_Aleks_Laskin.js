@@ -5,9 +5,51 @@ function myBallDraw(){
   function random(min,max){
     return Math.random() *(max-min) + min
   }
+
   var canvas = document.getElementById('canvas');
+  var canvasParent = canvas.parentNode;
   var ctx = canvas.getContext('2d');
   var raf;
+
+  var header = document.createElement('h1');
+  header.innerHTML = 'Score 5 points to proceed to next level';
+  header.style.color = "red";
+  canvasParent.insertBefore(header, canvas);
+
+  var headers = [
+    {
+      name: 'Lives',
+      color: 'green',
+      initValue: 10
+    },
+
+    {
+      name: 'Points',
+      color: 'green',
+      initValue: 0
+    },
+
+    {
+      name: 'Wins',
+      color: 'green',
+      initValue: 0
+    },
+    {
+      name: 'Loses',
+      color: 'red',
+      initValue: 0
+    }
+  ]
+
+  for (var header of headers) {
+    var element = document.createElement('h2')
+    element.innerHTML = header.name + `: <span id=${header.name}>${header.initValue}</span>`
+    element.style.color = header.color
+
+    document.body.appendChild(element)
+  }
+
+
 
   var ball = {
     x: 100,
@@ -55,7 +97,7 @@ function myBallDraw(){
     var wins = 0;
     var loses = 0;
 
-  canvas.addEventListener('click', function(e){
+    canvas.addEventListener('click', function(e){
     var mousePos = getMousePos(canvas, e);
     if((ball.x - ball.radius < mousePos.x && mousePos.x < ball.x + ball.radius) && (ball.y - ball.radius < mousePos.y && mousePos.y < ball.y + ball.radius)){
     if(ball.color == 'red'){
@@ -84,13 +126,14 @@ function myBallDraw(){
       lives--;
 
     }
-    document.getElementById("success").innerHTML = success;
-    document.getElementById("wins").innerHTML = wins;
-    document.getElementById("loses").innerHTML = loses;
-    document.getElementById("lives").innerHTML = lives;
+    document.getElementById("Points").innerHTML = success;
+    document.getElementById("Wins").innerHTML = wins;
+    document.getElementById("Loses").innerHTML = loses;
+    document.getElementById("Lives").innerHTML = lives;
 
   });
 
   ball.draw();
 }
+
 
