@@ -1,3 +1,10 @@
 Colaboration with A_06_Viktro_Naichev
 
 https://trello.com/b/LfO850s9/homeautomationuiyanevnaichev
+
+Idea: Вдигане на сървър и мобилно приложение за андройд, посредством което да се предлага отдалечен достъп за контрол на отоплителната система у дома.
+На място се помещава ардуино с тъчскриин дисплей за лесен достъп (GUI), което посредством релета включва изключва бойлер, конвектори и т.н.
+
+Приложение - Android Studio
+Сървър - Rubi Rails API
+Контролер - Arduino - https://github.com/DanyYanev/Boiler_Control
