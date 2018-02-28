@@ -1,3 +1,4 @@
+Method URL                               ctrlr action     comment
 GET    /rsas                             rsas#show        returns all RSA objects
 POST   /rsas?n&e&d                       rsas#create      create new RSA with n, e, d given as params (rsa.initialize)
 GET    /rsas/new_keys                    rsas#new_key     returns all new n, e, d (RSA.new_key)
