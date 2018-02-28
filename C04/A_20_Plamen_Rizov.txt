@@ -1,0 +1,13 @@
+POST	/RSA/new?n= &e= &d=		#creates new key
+GET		/RSA/:id/?n				    #gets n
+GET		/RSA/:id/?e				    #gets e
+GET		/RSA/:id/?d				    #gets d
+
+POST	/RSA/encrypt?encrypted_messages/message=		#encrypts a message
+GET		/RSA/encrypted_messages/?id						      #gets encrypted message with given id
+
+POST	/RSA/decrypt?decrypted_messages/encrypted_messages?id=		#decrypts encrypted message with given id
+GET		/RSA/decrypted_messages/?id								               	#gets decrypted message with given id
+
+GET		/RSA		    #gets all RSAs
+GET		/RSA/:id	  #gets given RSA
