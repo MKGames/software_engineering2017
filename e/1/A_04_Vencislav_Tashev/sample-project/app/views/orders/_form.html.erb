@@ -1,0 +1,6 @@
+<%= form_for [@product, @order] do |f| %>
+  <%= f.label :ordered_at %>
+  <%= f.date_field :ordered_at %>
+
+  <%= f.submit %>
+<% end %>

@@ -1,0 +1,11 @@
+<% if @orders.empty? %>
+  <h1>There are no orders yet. Be the first to <%= link_to 'make one', new_product_order_path %>.</h1>
+<% else %>
+  <h1>All orders</h1>
+
+  <ul>
+    <% @orders.each do |o| %>
+      <li><%= link_to o, product_order_path(@product, o) %></li>
+    <% end %>
+  </ul>
+<% end %>

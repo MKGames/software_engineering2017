@@ -1,0 +1,13 @@
+<% if @products.empty? %>
+  <h1>There are no products yet. Be the first to <%= link_to 'add one', new_product_path %>.</h1>
+<% else %>
+  <h1>All products</h1>
+
+  <ul>
+    <% @products.each do |p| %>
+      <li><%= link_to p, p %></li>
+    <% end %>
+  </ul>
+
+  <h3><%= link_to 'Add a new product', new_product_path %></h3>
+<% end %>
