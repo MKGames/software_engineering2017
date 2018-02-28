@@ -24,17 +24,22 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(order_params)
+    if User.exists?(order_params[:userId])
+		@order = Order.new(order_params)
 
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
-    end
+
+	    respond_to do |format|
+	      if @order.save
+	        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+	        format.json { render :show, status: :created, location: @order }
+	      else
+	        format.html { render :new }
+	        format.json { render json: @order.errors, status: :unprocessable_entity }
+	      end
+	    end
+	else
+	  # the truck doesn't exists
+	end
   end
 
   # PATCH/PUT /orders/1
